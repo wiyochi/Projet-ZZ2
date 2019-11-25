@@ -5,22 +5,22 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/activity_main_drawer_news"
+            android:id="@+id/activity_new_travel"
             android:icon="@drawable/baseline_directions_bike_black_18dp"
-            android:title="Nouveau Trajet" />
+            android:title="@string/newTravel" />
     </group>
 
     <item android:title="Configuration">
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/activity_main_drawer_profile"
+                    android:id="@+id/settings_activity"
                     android:icon="@drawable/baseline_account_circle_black_18dp"
-                    android:title="Profil" />
+                    android:title="@string/profile" />
                 <item
-                    android:id="@+id/activity_main_drawer_settings"
+                    android:id="@+id/activity_stats"
                     android:icon="@drawable/baseline_assessment_black_18dp"
-                    android:title="Statistiques" />
+                    android:title="@string/statistiques" />
             </group>
         </menu>
     </item>
