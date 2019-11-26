@@ -12,3 +12,9 @@
 # Jour 3 (20/11/19):
 ## Mathieu + Jérémy (1h) :
 	Design de l'interface sur papier
+
+# Jour 4 (25/11/19):
+## Jérémy (1h30) :
+	Premier lancement de la VM
+	Installation de mySQL sur le serveur
+	Création de USER et découverte du fonctionnement de la BDD.
