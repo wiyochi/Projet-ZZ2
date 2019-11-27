@@ -1,13 +1,10 @@
 package fr.isima.az.application
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.navigation.NavigationView
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
+import android.support.v7.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -15,15 +12,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var drawerLayout : DrawerLayout? = null
     private var navigationView : NavigationView? = null
 
+    val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.settings_activity)
+
+        val navController = findNavController(R.id.nav_host_fragment)
+        findViewById<NavigationView>(R.id.nav_view)
+            .setupWithNavController(navController)
+
 
         /*configureToolbar()
         configureDrawerLayout()
         configureNavigationView()*/
     }
 
+    /*
     override fun onBackPressed() {
         if (drawerLayout!!.isDrawerOpen(GravityCompat.START)) {
             drawerLayout?.closeDrawer(GravityCompat.START)
@@ -64,4 +70,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView = findViewById(R.id.activity_main_nav_view)
         navigationView?.setNavigationItemSelectedListener(this)
     }
+    */
 }
