@@ -1,0 +1,49 @@
+DROP DATABASE IF EXISTS BIKEDD;
+CREATE DATABASE BIKEDD;
+
+USE BIKEDD;
+
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Projects;
+DROP TABLE IF EXISTS Access;
+DROP TABLE IF EXISTS Point3d;
+DROP TABLE IF EXISTS Point4d;
+
+CREATE TABLE Users
+(
+	id_user INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	username VARCHAR(50) NOT NULL
+);
+CREATE TABLE Projects
+(
+	id_tp INT AUTO_INCREMENT PRIMARY  KEY NOT NULL,
+	tp_name VARCHAR(100) NOT NULL,
+	type_project ENUM('Project', 'Travel') NOT NULL,
+	date_project DATETIME
+);
+CREATE TABLE Access
+(
+	id_tp INT,
+	id_user INT, 
+	PRIMARY KEY (id_tp, id_user),
+ 	FOREIGN KEY (id_tp) REFERENCES Projects(id_tp),
+	FOREIGN KEY (id_user) REFERENCES Users(id_user)
+);
+CREATE TABLE Point3d
+(
+	id_point INT AUTO_INCREMENT PRIMARY KEY,
+	x INT NOT NULL,
+	y INT NOT NULL,
+	z INT
+);
+CREATE TABLE Point4d
+(
+	id_point INT AUTO_INCREMENT PRIMARY KEY,
+	x INT NOT NULL,
+	y INT NOT NULL,
+	z INT NOT NULL,
+	t INT NOT NULL
+);
+
+INSERT INTO Users (username) VALUES ('Jérémy');
+INSERT INTO Users (username) VALUES ('Mathieu');

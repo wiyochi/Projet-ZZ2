@@ -5,8 +5,8 @@ INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
 INPUT /home/gagoi/Documents/zz/ZZ2/Projet-ZZ2/Rapport/BDD.tex
 OUTPUT /home/gagoi/Documents/zz/ZZ2/Projet-ZZ2/Rapport/BDD.log
-INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+INPUT /usr/share/texlive/texmf-dist/tex/latex/base/report.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/size11.clo
 INPUT /usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map
@@ -26,6 +26,9 @@ INPUT /usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 INPUT /home/gagoi/Documents/zz/ZZ2/Projet-ZZ2/Rapport/BDD.aux
 INPUT /home/gagoi/Documents/zz/ZZ2/Projet-ZZ2/Rapport/BDD.aux
 OUTPUT /home/gagoi/Documents/zz/ZZ2/Projet-ZZ2/Rapport/BDD.aux
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmr12.tfm

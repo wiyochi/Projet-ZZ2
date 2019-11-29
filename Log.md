@@ -18,3 +18,13 @@
 	Premier lancement de la VM
 	Installation de mySQL sur le serveur
 	Création de USER et découverte du fonctionnement de la BDD.
+
+# Jour 5 (26/11/19):
+## Jérémy (1h) :
+	Début de recherche sur l'organisation de la BDD.
+	Début de rapport sur la BDD, avec ajout de bibliographie
+
+# Jour 6 (27/11/19):
+## Jérémy
+	Choix de l'organisation de la BDD
+	Schema fais sur draw.io pour résumé la BDD
