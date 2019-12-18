@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/activity_new_travel"
+            android:icon="@drawable/baseline_directions_bike_black_18dp"
+            android:title="@string/newTravel" />
+    </group>
+
+    <item android:title="Configuration">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/settings_activity"
+                    android:icon="@drawable/baseline_account_circle_black_18dp"
+                    android:title="@string/profile" />
+                <item
+                    android:id="@+id/activity_stats"
+                    android:icon="@drawable/baseline_assessment_black_18dp"
+                    android:title="@string/statistiques" />
+            </group>
+        </menu>
+    </item>
+
+</menu>
