@@ -1,4 +1,4 @@
-package com.example.application
+package fr.isima.velo
 
 import org.junit.Test
 
