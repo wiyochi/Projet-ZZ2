@@ -1,4 +1,4 @@
-package com.example.application.ui.gallery
+package fr.isima.velo.ui.slideshow
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,22 +8,22 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.application.R
+import fr.isima.velo.R
 
-class GalleryFragment : Fragment() {
+class SlideshowFragment : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
+    private lateinit var slideshowViewModel: SlideshowViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel =
-            ViewModelProviders.of(this).get(GalleryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        galleryViewModel.text.observe(this, Observer {
+        slideshowViewModel =
+                ViewModelProviders.of(this).get(SlideshowViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_slideshow, container, false)
+        val textView: TextView = root.findViewById(R.id.text_slideshow)
+        slideshowViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root
