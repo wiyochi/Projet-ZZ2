@@ -18,6 +18,8 @@
 	Premier lancement de la VM
 	Installation de mySQL sur le serveur
 	Création de USER et découverte du fonctionnement de la BDD.
+## Mathieu (3h)
+	Mise en place des "activity" de l'application pour démarrer le menu de navigation latéral (beaucoup de consultation de docs sur la création d'un navigation viewer et des bases de kotlin (null safety, class, ...))
 
 # Jour 5 (26/11/19):
 ## Jérémy (1h) :
@@ -28,3 +30,5 @@
 ## Jérémy
 	Choix de l'organisation de la BDD
 	Schema fais sur draw.io pour résumé la BDD
+## Mathieu (2h)
+	Test de création du menu de navigation, utilisation de androidx alors que la version d'android utilisée est 7. Du coup tout doit être refait pour ne pas utiliser androidx

@@ -1,4 +1,4 @@
-package fr.isima.az.application
+package com.example.application
 
 import org.junit.Test
 
