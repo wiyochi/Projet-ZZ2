@@ -32,3 +32,16 @@
 	Schema fais sur draw.io pour résumé la BDD
 ## Mathieu (2h)
 	Test de création du menu de navigation, utilisation de androidx alors que la version d'android utilisée est 7. Du coup tout doit être refait pour ne pas utiliser androidx
+
+# Jour 7 (10/12/19):
+## Mathieu (2h)
+ 	Rebasement du projet à partir d'un exemple Android Studio pour le navigation drawer (+ compréhension de l'exemple)
+## Jérémy (2h)
+	Code approximatif d'un serveur, permettant de se connecter.
+	Code d'un client qui envoie un message sur le serveur pour vérifier son fonctionnement. 
+	Problème de connection à distance (fonctionne en localhost)
+
+# Jour 8 (11/12/19):
+## Jérémy (2h)
+	Correction de bug d'affichage d'erreur sur le serveur lors de la connection du client.
+	Correction des ports de la VM qui bloquaient l'accès au port 47503.
