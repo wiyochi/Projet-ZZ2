@@ -14,8 +14,12 @@ public class Serveur implements Runnable {
 	private boolean isRunning = true;
 
 	public static void main(String[] args) {
-		Thread t = new Thread(new Serveur());
+		Serveur s = new Serveur();
+		Thread t = new Thread(s);
 		t.start();
+		while (true) {
+			
+		}
 	}
 
 	public Serveur() {
