@@ -33,7 +33,7 @@
 ## Mathieu (2h)
 	Test de création du menu de navigation, utilisation de androidx alors que la version d'android utilisée est 7. Du coup tout doit être refait pour ne pas utiliser androidx
 
-# Jour 7 (10/12/19):
+# Jour 7 (18/12/19):
 ## Mathieu (2h)
  	Rebasement du projet à partir d'un exemple Android Studio pour le navigation drawer (+ compréhension de l'exemple)
 ## Jérémy (2h)
@@ -41,7 +41,11 @@
 	Code d'un client qui envoie un message sur le serveur pour vérifier son fonctionnement. 
 	Problème de connection à distance (fonctionne en localhost)
 
-# Jour 8 (11/12/19):
+# Jour 8 (19/12/19):
 ## Jérémy (2h)
 	Correction de bug d'affichage d'erreur sur le serveur lors de la connection du client.
 	Correction des ports de la VM qui bloquaient l'accès au port 47503.
+
+# Jour 9 (20/12/19):
+## Jérémy (2h)
+	Ajout de l'accès à la base de donnée au serveur. (Problème lors de l'utilisation de connector : ajout du .jar au classpath).
