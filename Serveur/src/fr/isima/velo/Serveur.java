@@ -4,13 +4,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class Serveur implements Runnable {
+import fr.isima.velo.clients.Client;
 
-	private static final int NO_ERROR = 0;
+public class Serveur extends Thread {
 	private static final int ERROR_SERVER = 2;
 	private static final int ERROR_BDD = 3;
 	private static final int ERROR_SQL = 4;
@@ -22,14 +20,13 @@ public class Serveur implements Runnable {
 	private Connection con;
 
 	public static void main(String[] args) {
-		Serveur s = new Serveur();
-		Thread t = new Thread(s);
-		t.start();
+		new Serveur().start();
 	}
 
 	public Serveur() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			// TODO: Hide password :D
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/BIKEDD", "root", "v3/0R1G0lo");
 			socket = new ServerSocket(PORT);
 			//while (r.next())
@@ -55,6 +52,8 @@ public class Serveur implements Runnable {
 				c.start();
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
