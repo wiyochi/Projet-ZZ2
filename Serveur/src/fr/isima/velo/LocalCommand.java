@@ -5,16 +5,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import fr.isima.velo.clients.Client;
+import fr.isima.velo.clients.SQLHandler;
+
 public class LocalCommand extends Thread {
 
 	private boolean isRunning = true;
-	private Serveur s;
 	private Statement st;
 	private ResultSet rs;
 
-	public LocalCommand(Serveur s, Statement st) {
-		this.s = s;
+	private SQLHandler sqlHandler;
+
+	public LocalCommand(Statement st) {
 		this.st = st;
+		this.sqlHandler = new SQLHandler(st);
 	}
 
 	@Override
@@ -24,7 +28,7 @@ public class LocalCommand extends Thread {
 		while (isRunning) {
 			switch (sc.nextLine()) {
 			case "stop":
-				s.kill();
+				System.exit(0);
 				break;
 			case "query":
 				try {
@@ -39,6 +43,13 @@ public class LocalCommand extends Thread {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				break;
+			case "subscribe":
+				String username = sc.nextLine().replaceAll("\n", "");
+				String password = sc.nextLine().replaceAll("\n", "");
+				
+				sqlHandler.subscribe(username, password);
+				break;
 			default:
 				break;
 			}

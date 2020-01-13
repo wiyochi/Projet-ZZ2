@@ -48,9 +48,19 @@ public class Client extends Thread {
 	public void run() {
 		while (isRunning) {
 			String input = communicationHandler.read();
-			if (input.startsWith("Connection:")) { // Pas sécurisé, juste pour tester
+			if (input.startsWith("Connect:")) { // Pas sécurisé, juste pour tester
 				String[] ids = input.substring(11).split(":");
 				clientID = connect(ids[0], ids[1]);
+			} else if (input.startsWith("Subscribe:")) {
+				sqlHandler.subscribe(input.split(":")[1], input.split(":")[2]);
+			} else if (input.startsWith("History:")) {
+				
+			} else if (input.startsWith("NewP:")) {
+				
+			} else if (input.startsWith("NewJ:")) {
+				
+			} else if (input.startsWith("EditP:")) {
+				
 			}
 		}
 	}

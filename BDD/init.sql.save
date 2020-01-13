@@ -47,4 +47,4 @@ CREATE TABLE Point4d
 );
 
 INSERT INTO Users (username, password) VALUES ('Jérémy', 'test1');
-INSERT INTO Users (username, password) VALUES ('Mathieu', 'test2');
+INSERT INTO Users (username, password) VALUES ('Mathieu', );
