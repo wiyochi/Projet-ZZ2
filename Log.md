@@ -44,8 +44,16 @@
 # Jour 8 (19/12/19):
 ## Jérémy (2h)
 	Correction de bug d'affichage d'erreur sur le serveur lors de la connection du client.
-	Correction des ports de la VM qui bloquaient l'accès au port 47503.
+	Correction des ports de la VM qui bloquaiellnt l'accès au port 47503.
 
 # Jour 9 (20/12/19):
 ## Jérémy (2h)
 	Ajout de l'accès à la base de donnée au serveur. (Problème lors de l'utilisation de connector : ajout du .jar au classpath).
+
+# Jour 10 (10/01/20):
+## Jérémy (1h)
+	Amélioration du serveur. (Problème d'accès à la VM : éteinte + pareil le weekend...).
+
+# Jour 11 (13/01/20):
+## Jérémy (1h30)
+	Création du protocole de communication entre l'application et le serveur.

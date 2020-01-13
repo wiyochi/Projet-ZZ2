@@ -1,6 +1,7 @@
 \documentclass[a4paper, 11pt]{report}
 
 \usepackage{array}
+\usepackage{textcomp}
 \usepackage{geometry}
 
 
@@ -8,7 +9,7 @@
 
 \begin{document}
 
-\chapter{Bite}
+\chapter{Choix BDD}
 \section{Base de données}
 \subsection{Choix de la base de donnée}
 	Nous avons tout d'abord dû choisir quelle technologie nous allions utilisé pour notre base de données.
@@ -28,6 +29,53 @@
 			Oracle Database & Bon & Oui & Oui \\
 			\hline
 			sqlite3 & Bon & Non & Oui \\
+			\hline
+		\end{tabular}
+	\end{center}
+\section{Communication avec l'application}
+\subsection{Serveur}
+\subsection{Protocole}
+	\begin{center}
+		Liste des messages possibles dans le sens clients $\rightarrow$ serveur
+		\par
+		\begin{tabular}{|l|l|}
+			\hline
+			Commande & Utilisation\\
+			\hline
+			Inscription:$<id>:<mdp>$ & Permet de s'inscrire\\
+			\hline
+			Connection:$<id>:<mdp>$ & Permet de se connecter à son compte\\
+			\hline
+			\hline
+			Historique:$<debut>:<fin>$ & Permet de récupérer $x$ trajets entre début et fin (en id)\\
+			\hline
+			NewP:$<nom>:<x+y+z;...>$ & Ajoute un nouveau projet\\
+			\hline
+			NewJ:$<nom>:<x+y+z+t;...>$ & Ajoute un nouveau trajet\\
+			\hline
+			EditP:$<id>:<x+y+z;...>$ & Modifie un projet\\
+			\hline
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		Liste des messages possibles dans le sens serveur $\rightarrow$ client
+		\par
+		\begin{tabular}{|l|l|}
+			\hline
+			Commande & Utilisation\\
+			\hline
+			Subscribed:$<id>$ & Confirme l'inscription \\
+			\hline
+			Unsubscribed & Erreur lors de l'inscripton \\
+			\hline
+			Connected:$<id>$ & Valide la connection à son compte\\
+			\hline
+			Unconnected & Erreur lors de la connection \\
+			\hline
+			\hline
+			Projects:$<id>:<nom>:<x+y+z;...;x+y+z>$ & Envoie des informations sur un projet\\
+			\hline
+			Journey:$<id>:<nom>:<x+y+z+t...>$ & Envoie des informations sur un projet\\
 			\hline
 		\end{tabular}
 	\end{center}
