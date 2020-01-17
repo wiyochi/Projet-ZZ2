@@ -11,7 +11,7 @@ public class Client extends Thread {
 	private final int id;
 	private CommunicationHandler communicationHandler;
 	private SQLHandler sqlHandler;
-	private int clientID;
+	private String clientID;
 
 	private boolean isRunning = true; // Le client est connecté.
 
@@ -50,9 +50,10 @@ public class Client extends Thread {
 			String input = communicationHandler.read();
 			if (input.startsWith("Connect:")) { // Pas sécurisé, juste pour tester
 				String[] ids = input.substring(11).split(":");
-				clientID = connect(ids[0], ids[1]);
+				clientID = sqlHandler.connect(Integer.parseInt(ids[0]), ids[1]);
 			} else if (input.startsWith("Subscribe:")) {
-				sqlHandler.subscribe(input.split(":")[1], input.split(":")[2]);
+				int id = sqlHandler.subscribe(input.split(":")[1], input.split(":")[2]);
+				
 			} else if (input.startsWith("History:")) {
 				
 			} else if (input.startsWith("NewP:")) {
@@ -63,12 +64,5 @@ public class Client extends Thread {
 				
 			}
 		}
-	}
-
-	private int connect(String id, String pass) {
-		if (pass.equals(sqlHandler.getPassword(id))) {
-			return sqlHandler.getClientId(id);
-		}
-		return 0;
 	}
 }

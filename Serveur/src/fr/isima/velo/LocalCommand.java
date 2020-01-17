@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import fr.isima.velo.clients.Client;
 import fr.isima.velo.clients.SQLHandler;
 
 public class LocalCommand extends Thread {
