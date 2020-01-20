@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import fr.isima.velo.utils.Point3D;
 import fr.isima.velo.utils.Point4D;
 
 public class SQLHandler {
@@ -45,33 +46,60 @@ public class SQLHandler {
 		return null;
 	}
 
-	public String history(int idUser, int start, int end) {
+	public String history(int idUser, String type, int start, int end) {
 		StringBuilder builder = new StringBuilder();
 
-		ResultSet id_tps = execute("SELECT * FROM Access WHERE id_user=" + idUser + " AND id_tp_user BETWEEN " + start
-				+ " AND " + end + ';');
+		ResultSet tps = execute(String.format(
+				"" + "SELECT * " + "FROM (SELECT id_tp FROM Access Where id_user=%d) AS Acc " + "NATURAL JOIN Projects "
+						+ "WHERE type_project='%s' " + "ORDER BY id_tp DESC " + "LIMIT %d OFFSET %d;",
+				idUser, type, end - start, start));
 
 		try {
-			while (id_tps.next()) {
-				StringBuilder tBuild = new StringBuilder("Journey:");
-				int id_tp = id_tps.getInt("id_tp_user");
+			while (tps.next()) {
+				StringBuilder tBuild = new StringBuilder();
+				if (type.equals("Travel"))
+					tBuild.append("Journey:");
+				else
+					tBuild.append("Projects:");
+				int id_tp = tps.getInt("id_tp");
 				tBuild.append(id_tp);
 				tBuild.append(":");
-				ResultSet tp = execute("SELECT * FROM Projects WHERE id_tp=" + id_tp + ';');
-				tBuild.append(tp.getString("tp_name"));
+				tBuild.append(tps.getString("tp_name"));
 				tBuild.append(":");
-				tBuild.append(tp.getDate("date_project"));
-				tBuild.append(":");
-				ResultSet points = execute("SELECT * FROM Point4D WHERE id_tp=" + id_tp + ';');
-				while (points.next()) {
-					tBuild.append(new Point4D(points));
-					tBuild.append(';');
+				if (type.equals("Travel")) {
+					tBuild.append(tps.getDate("date_project"));
+					tBuild.append(":");
+					ResultSet points = execute("SELECT * FROM Point4D WHERE id_tp=" + id_tp + ';');
+					while (points.next()) {
+						tBuild.append(new Point4D(points));
+						tBuild.append(';');
+					}
+				} else 
+				{
+					ResultSet points = execute("SELECT * FROM Point3D WHERE id_tp=" + id_tp + ';');
+					while (points.next()) {
+						tBuild.append(new Point3D(points));
+						tBuild.append(';');
+					}
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return builder.toString();
+	}
+
+	public void createProject(String name, String points, int id) {
+		String[] pointsSplit = points.split(";");
+		try {
+			for (String string : pointsSplit)
+				statement.executeUpdate(new Point3D(string).toSQLString(id));
+			statement.executeUpdate(String.format("INSERT INTO Projects (tp_name, type_project) VALUES (%s, 'Project');", name));
+			int id_tp = execute("SELECT MAX(id_tp) FROM Projects;").getInt(0);
+			int id_tp_user = execute(String.format("SELECT MAX(id_tp_user) FROM Access WHERE id_user='%s';", id)).getInt(0);
+			statement.executeUpdate(String.format("INSERT INTO Access VALUES (%d, %d, %d);", id_tp, id, id_tp_user + 1));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

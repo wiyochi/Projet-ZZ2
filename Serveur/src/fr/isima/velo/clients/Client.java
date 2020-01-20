@@ -11,7 +11,8 @@ public class Client extends Thread {
 	private final int id;
 	private CommunicationHandler communicationHandler;
 	private SQLHandler sqlHandler;
-	private String clientID;
+	private String name;
+	private int clientID;
 
 	private boolean isRunning = true; // Le client est connecté.
 
@@ -48,14 +49,20 @@ public class Client extends Thread {
 	public void run() {
 		while (isRunning) {
 			String input = communicationHandler.read();
+			String[] args = input.split(":");
 			if (input.startsWith("Connect:")) { // Pas sécurisé, juste pour tester
 				String[] ids = input.substring(11).split(":");
-				clientID = sqlHandler.connect(Integer.parseInt(ids[0]), ids[1]);
+				clientID = Integer.parseInt((ids[0]));
+				name = sqlHandler.connect(clientID, ids[1]);
 			} else if (input.startsWith("Subscribe:")) {
 				int id = sqlHandler.subscribe(input.split(":")[1], input.split(":")[2]);
-				
+				// TODO: Answer to client is ID
 			} else if (input.startsWith("History:")) {
-				
+				String histo = sqlHandler.history(clientID, "Travel", Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+				communicationHandler.write(histo);
+			} else if (input.startsWith("Projects:")) {
+				String histo = sqlHandler.history(clientID, "Projet", Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+				communicationHandler.write(histo);
 			} else if (input.startsWith("NewP:")) {
 				
 			} else if (input.startsWith("NewJ:")) {

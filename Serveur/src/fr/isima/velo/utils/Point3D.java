@@ -12,6 +12,13 @@ public class Point3D {
 		y = getCoordinateFromResult(rs, "y");
 		z = getCoordinateFromResult(rs, "z");
 	}
+	
+	public Point3D(String s) {
+		String[] args = s.split("+");
+		x = Double.parseDouble(args[0]);
+		y = Double.parseDouble(args[1]);
+		z = Double.parseDouble(args[2]);
+	}
 
 	@Override
 	public String toString() {
@@ -25,7 +32,6 @@ public class Point3D {
 		return bd.toString();
 	}
 	
-
 	protected double getCoordinateFromResult(ResultSet rs, String coord) {
 		try {
 			return rs.getDouble(coord);
@@ -33,5 +39,9 @@ public class Point3D {
 			e.printStackTrace();
 			return Double.MIN_VALUE;
 		}
+	}
+	
+	public String toSQLString(int clientId) {
+		return String.format("INSERT INTO Point3D VALUES (%d, %d, %d, %d);", x, y, z);
 	}
 }

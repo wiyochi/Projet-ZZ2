@@ -11,42 +11,39 @@ DROP TABLE IF EXISTS Point4d;
 
 CREATE TABLE Users
 (
-	id_user BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-	username VARCHAR(50) NOT NULL,
-	password VARCHAR(50) NOT NULL
+	id_user		BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	name		VARCHAR(50) NOT NULL,
+	pass		VARCHAR(50) NOT NULL
 );
 CREATE TABLE Projects
 (
-	id_tp BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-	tp_name VARCHAR(100) NOT NULL,
-	type_project ENUM('Project', 'Travel') NOT NULL,
-	date_project DATETIME
+	id_tp		BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	tp_name		VARCHAR(100) NOT NULL,
+	type_project	ENUM('Project', 'Travel') NOT NULL,
+	date_project 	DATETIME
 );
 CREATE TABLE Access
 (
-	id_tp BIGINT,
-	id_user BIGINT,
-	id_tp_user BIGINT NOT NULL,
+	id_tp   	BIGINT,
+	id_user 	BIGINT,
 	PRIMARY KEY (id_tp, id_user),
  	FOREIGN KEY (id_tp) REFERENCES Projects(id_tp),
 	FOREIGN KEY (id_user) REFERENCES Users(id_user)
 );
 CREATE TABLE Point3d
 (
-	id_point BIGINT AUTO_INCREMENT PRIMARY KEY,
-	id_tp BIGINT;
-	x DOUBLE NOT NULL,
-	y DOUBLE NOT NULL,
-	z DOUBLE NOT NULL,
+	id_point 	BIGINT,
+	x 		DOUBLE NOT NULL,
+	y 		DOUBLE NOT NULL,
+	z 		DOUBLE NOT NULL
 );
 CREATE TABLE Point4d
 (
-	id_point BIGINT AUTO_INCREMENT PRIMARY KEY,
-	id_tp BIGINT;
-	x DOUBLE NOT NULL,
-	y DOUBLE NOT NULL,
-	z DOUBLE NOT NULL,
-	t DOUBLE NOT NULL
+	id_POINT	BIGINT,
+	x 		DOUBLE NOT NULL,
+	y 		DOUBLE NOT NULL,
+	z 		DOUBLE NOT NULL,
+	t 		TIME NOT NULL
 );
 
 INSERT INTO Users (username, password) VALUES ('Jérémy', 'test1');
