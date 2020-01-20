@@ -42,6 +42,6 @@ public class Point3D {
 	}
 	
 	public String toSQLString(int clientId) {
-		return String.format("INSERT INTO Point3D VALUES (%d, %d, %d, %d);", x, y, z);
+		return String.format("INSERT INTO Point3D VALUES (%d, %f, %f, %f);", x, y, z);
 	}
 }
