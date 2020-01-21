@@ -20,3 +20,7 @@
 # Jour 5 (27/11/19)
 ## Mathieu (2h)
 	Test de création du menu de navigation, utilisation de androidx alors que la version d'android utilisée est 7. Du coup tout doit être refait pour ne pas utiliser androidx
+
+# jour 7 (21/01/20)
+## Mathieu (4h)
+	Ajout de la google map, du layout et du bouton dans l'activité newTravel. Ajout des affichages des chemins sur la map (à tester).
