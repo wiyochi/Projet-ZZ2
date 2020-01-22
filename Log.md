@@ -57,3 +57,12 @@
 # Jour 11 (13/01/20):
 ## Jérémy (1h30)
 	Création du protocole de communication entre l'application et le serveur.
+
+# Quelques jours du ~15 au ~19
+## Jérémy (4h)
+	Implémentation de plusieurs commandes côté serveur : history, nouveau projet -> Non testé (en attente d'une appli pour facilité l'insertion des données)
+
+# Jour 12 & 13 (21-22/01/20):
+## Jérémy 2h
+	Essaie de connexion entre l'application et le serveur : Echec
+	Diagnostique de l'erreur : le téléphone n'a pas internet lors d'une connexion au VPN
