@@ -5,7 +5,7 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
-    <activity
+    <fragment
         android:id="@+id/nav_new_travel"
         android:name="fr.isima.velo.application.ui.newTravel.NewTravel"
         android:label="@string/menu_new_travel"
