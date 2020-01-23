@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class NewTravel extends FragmentActivity implements OnMapReadyCallback {
     private LocationListener locationListener;
     private List<LatLng> list;
     private PolylineOptions polyline;
+    private boolean travelOn;
 
 
     @Override
@@ -56,10 +58,9 @@ public class NewTravel extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        travelOn = false;
+
         list = new ArrayList<>(200);
-        polyline = new PolylineOptions();
-        polyline.color(Color.RED);
-        polyline.width(3);
 
         newTravelButton = findViewById(R.id.button_new_travel);
         debugTextView = findViewById(R.id.debugCoords);
@@ -69,25 +70,28 @@ public class NewTravel extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onLocationChanged(Location location) {
                 debugTextView.append("\n latitude: " + location.getLatitude() + "longitude: " + location.getLongitude());
-                LatLng nPos = new LatLng(location.getLatitude(), location.getLongitude());
-                polyline.add(nPos);
-                mMap.clear();
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(nPos));
-                mMap.addPolyline(polyline);
+                if (true/*travelOn*/) {
+                    LatLng nPos = new LatLng(location.getLatitude(), location.getLongitude());
+                    mMap.addMarker(new MarkerOptions().position(nPos).title("Marker"));
+                    polyline.add(nPos);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(nPos));
+                    mMap.addPolyline(polyline);
+                }
             }
 
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-
+                Log.d("LISTENER", "status changed");
             }
 
             @Override
             public void onProviderEnabled(String provider) {
-
+                Log.d("LISTENER", "Provider Enabled");
             }
 
             @Override
             public void onProviderDisabled(String provider) {
+                Log.d("LISTENER", "Provider Disabled");
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivity(intent);
             }
@@ -101,23 +105,25 @@ public class NewTravel extends FragmentActivity implements OnMapReadyCallback {
         }
         else {
             configureLocationManager();
+            configureButton();
         }
-
-        configureButton();
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case 10:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     configureLocationManager();
+                    configureButton();
+                }
                 return;
         }
     }
 
     @SuppressLint("MissingPermission")
     private void configureLocationManager() {
+        /*
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(false);
@@ -131,6 +137,9 @@ public class NewTravel extends FragmentActivity implements OnMapReadyCallback {
         } else {
             locationManager.requestLocationUpdates("gps", 10, 1, locationListener);
         }
+        */
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 10, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10, 10, locationListener);
     }
 
     private void configureButton() {
@@ -139,9 +148,34 @@ public class NewTravel extends FragmentActivity implements OnMapReadyCallback {
             @SuppressLint("MissingPermission")
             @Override
             public void onClick(View v) {
-                if (locationManager != null)
-                    if (locationManager.getLastKnownLocation("gps") != null)
-                        debugTextView.append("\n\nlatitude: " + locationManager.getLastKnownLocation("gps").getLatitude() + "\nlongitude: " + locationManager.getLastKnownLocation("gps").getLongitude());
+                Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (loc == null) {
+                    Log.d("eznf", "pas gps");
+                    loc = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+                }
+
+
+                if (!travelOn) {
+                    Log.d("BUTTON", "travelOn");
+                    debugTextView.append("\n\nlatitude: " + loc.getLatitude() + "\nlongitude: " + loc.getLongitude());
+                    mMap.clear();
+                    polyline = new PolylineOptions();
+                    polyline.color(Color.RED);
+                    polyline.width(3);
+
+                    LatLng nPos = new LatLng(loc.getLatitude(), loc.getLongitude());
+
+                    mMap.addMarker(new MarkerOptions().position(nPos).title("Marker"));
+                    polyline.add(nPos);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(nPos));
+
+                    travelOn = true;
+                    newTravelButton.setText("Arrêter le trajet");
+                } else {
+                    Log.d("BUTTON", "travelOff");
+                    newTravelButton.setText("Nouveau trajet");
+                    travelOn = false;
+                }
             }
         });
     }
@@ -160,9 +194,9 @@ public class NewTravel extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+        /*LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
 
     }
 }
