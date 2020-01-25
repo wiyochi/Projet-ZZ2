@@ -37,7 +37,7 @@ public class NewTravel extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        fragmentTransaction.replace(R.id.container, map, "one");
+        fragmentTransaction.add(R.id.container, map, "one");
         fragmentTransaction.commit();
 
         configureButton();
