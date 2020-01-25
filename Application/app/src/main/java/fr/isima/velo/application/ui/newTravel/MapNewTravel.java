@@ -2,6 +2,7 @@ package fr.isima.velo.application.ui.newTravel;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -11,8 +12,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -26,34 +32,32 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import fr.isima.velo.application.R;
 
-public class MapNewTravel extends FragmentActivity implements OnMapReadyCallback, LocationListener {
+public class MapNewTravel extends Fragment implements OnMapReadyCallback, LocationListener {
 
-    private GoogleMap mMap;
     private PolylineOptions polyline;
     private LocationManager locationManager;
-    private boolean onTravel;
+    private boolean travelOn = false;
+    private GoogleMap mMap;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        View root = inflater.inflate(R.layout.fragment_new_travel, container, false);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        onTravel = false;
-
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && getActivity().checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[] {
                     Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION
             }, 10);
-            return;
         }
         else {
             configureLocationManager();
         }
+
+        return root;
     }
 
     @SuppressLint("MissingPermission")
@@ -68,12 +72,23 @@ public class MapNewTravel extends FragmentActivity implements OnMapReadyCallback
         polyline.color(Color.RED);
         polyline.width(3);
 
+        Log.d("NEW TRAVEL", "lat: " + loc.getLatitude() + ", lon: " + loc.getLongitude());
+
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(nPos));
 
         polyline.add(nPos);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(nPos));
         mMap.moveCamera(CameraUpdateFactory.zoomBy(15));
+        travelOn = true;
+    }
+
+    public void endTravel() {
+        travelOn = false;
+    }
+
+    public boolean isTravelOn() {
+        return travelOn;
     }
 
     @SuppressLint("MissingPermission")
@@ -95,13 +110,8 @@ public class MapNewTravel extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-    }
-
-    @Override
     public void onLocationChanged(Location location) {
-        if (onTravel) {
+        if (travelOn) {
             LatLng nPos = new LatLng(location.getLatitude(), location.getLongitude());
             mMap.clear();
             mMap.addMarker(new MarkerOptions().position(nPos));
@@ -109,6 +119,7 @@ public class MapNewTravel extends FragmentActivity implements OnMapReadyCallback
             mMap.animateCamera(CameraUpdateFactory.newLatLng(nPos));
             mMap.addPolyline(polyline);
         }
+        Log.d("MAP LOCATION CHANGED", "Lat: " + location.getLatitude() + " , Lon: " + location.getLongitude());
     }
 
     @Override
@@ -128,5 +139,10 @@ public class MapNewTravel extends FragmentActivity implements OnMapReadyCallback
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(intent);
         */
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
     }
 }

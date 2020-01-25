@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     android:paddingLeft="2dp"
     android:paddingRight="2dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="100"
+    android:id="@+id/container">
 
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="500dp" />
+        android:layout_height="100dp" />
 
     <Button
         android:id="@+id/button_new_travel"
@@ -20,21 +22,11 @@
         android:layout_height="wrap_content"
         android:text="@string/title_activity_new_travel" />
 
-    <TextView
-        android:id="@+id/debugCoords"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
 
 </LinearLayout>
 <!--
-        android:layout_weight="60"
-        android:layout_weight="30"
         android:layout_weight="10"
-
-    android:weightSum="100"
-
-
+        android:layout_weight="70"
         tools:context=".ui.newTravel.NewTravel"
 
 -->
