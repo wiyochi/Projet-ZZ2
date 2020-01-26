@@ -27,7 +27,7 @@
 	Début de rapport sur la BDD, avec ajout de bibliographie
 
 # Jour 6 (27/11/19):
-## Jérémy
+## Jérémy (1h)
 	Choix de l'organisation de la BDD
 	Schema fais sur draw.io pour résumé la BDD
 ## Mathieu (2h)
@@ -66,3 +66,10 @@
 ## Jérémy 2h
 	Essaie de connexion entre l'application et le serveur : Echec
 	Diagnostique de l'erreur : le téléphone n'a pas internet lors d'une connexion au VPN
+# Jour 14 (23/01/20):
+## Jérémy 1h
+	Rédaction rapport
+# Jour 15 (26/01/20):
+## Jérémy 2h
+	Problème VPN sous android
+	Rapport
