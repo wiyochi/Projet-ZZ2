@@ -1,0 +1,115 @@
+10:33:36.213 -- ----- OpenVPN Start -----
+
+10:33:36.214 -- EVENT: CORE_THREAD_ACTIVE
+
+10:33:36.216 -- OpenVPN core 3.git::728733ae:Release android arm64 64-bit PT_PROXY built on Aug 14 2019 14:13:26
+
+10:33:36.219 -- Frame=512/2048/512 mssfix-ctrl=1250
+
+10:33:36.222 -- UNUSED OPTIONS
+1 [tls-client] 
+9 [resolv-retry] [5] 
+10 [nobind] 
+14 [persist-key] 
+15 [persist-tun] 
+17 [auth-nocache] 
+18 [verb] [3] 
+19 [script-security] [2] 
+20 [route-method] [exe] 
+21 [route-delay] [2] 
+
+10:33:36.222 -- EVENT: RESOLVE
+
+10:33:36.229 -- Contacting 193.55.95.49:443 via TCPv4
+
+10:33:36.230 -- EVENT: WAIT
+
+10:33:36.296 -- Connecting to [vpn-etu.isima.fr]:443 (193.55.95.49) via TCPv4
+
+10:33:36.364 -- EVENT: CONNECTING
+
+10:33:36.369 -- Tunnel Options:V4,dev-type tun,link-mtu 1572,tun-mtu 1500,proto TCPv4_CLIENT,comp-lzo,keydir 1,cipher AES-256-CBC,auth SHA256,keysize 256,tls-auth,key-method 2,tls-client
+
+10:33:36.369 -- Creds: Username/Password
+
+10:33:36.370 -- Peer Info:
+IV_GUI_VER=OC30Android
+IV_VER=3.git::728733ae:Release
+IV_PLAT=android
+IV_NCP=2
+IV_TCPNL=1
+IV_PROTO=2
+IV_LZO_STUB=1
+IV_COMP_STUB=1
+IV_COMP_STUBv2=1
+IV_IPv6=0
+
+
+10:33:36.439 -- VERIFY OK : depth=1
+cert. version     : 3
+serial number     : B0:83:93:10:E0:B4:B7:57
+issuer name       : CN=OpenVPN-CA-vpn-etu.isima.fr
+subject name      : CN=OpenVPN-CA-vpn-etu.isima.fr
+issued  on        : 2019-05-16 09:59:08
+expires on        : 2029-05-13 09:59:08
+signed using      : RSA with SHA-256
+RSA key size      : 2048 bits
+basic constraints : CA=true
+key usage         : Key Cert Sign, CRL Sign
+
+
+10:33:36.440 -- VERIFY OK : depth=0
+cert. version     : 3
+serial number     : E3:B1:62:8C:98:6F:A0:8B
+issuer name       : CN=OpenVPN-CA-vpn-etu.isima.fr
+subject name      : CN=OpenVPN-Server-vpn-etu.isima.fr
+issued  on        : 2019-05-16 09:59:10
+expires on        : 2029-05-13 09:59:10
+signed using      : RSA with SHA-256
+RSA key size      : 2048 bits
+basic constraints : CA=false
+key usage         : Digital Signature, Key Encipherment
+ext key usage     : TLS Web Server Authentication
+
+
+10:33:36.812 -- SSL Handshake: TLSv1.2/TLS-ECDHE-RSA-WITH-AES-256-GCM-SHA384
+
+10:33:36.813 -- Session is ACTIVE
+
+10:33:36.813 -- EVENT: GET_CONFIG
+
+10:33:36.816 -- Sending PUSH_REQUEST to server...
+
+10:33:37.120 -- OPTIONS:
+0 [redirect-gateway] [def1] 
+1 [redirect-gateway] [def1] [bypass-dhcp] 
+2 [dhcp-option] [DNS] [192.168.100.75] 
+3 [dhcp-option] [DNS] [192.168.100.74] 
+4 [dhcp-option] [DNS] [193.55.95.1] 
+5 [dhcp-option] [DNS] [80.67.169.12] 
+6 [dhcp-option] [DOMAIN] [local.isima.fr] 
+7 [route] [10.9.0.1] 
+8 [topology] [net30] 
+9 [ping] [10] 
+10 [ping-restart] [120] 
+11 [ifconfig] [10.9.0.6] [10.9.0.5] 
+12 [peer-id] [0] 
+13 [cipher] [AES-256-GCM] 
+14 [block-ipv6] 
+
+
+10:33:37.121 -- PROTOCOL OPTIONS:
+  cipher: AES-256-GCM
+  digest: SHA256
+  compress: COMP_STUB
+  peer ID: 0
+
+10:33:37.122 -- EVENT: ASSIGN_IP
+
+10:33:37.165 -- Connected via tun
+
+10:33:37.166 -- LZO-ASYM init swap=0 asym=1
+
+10:33:37.166 -- Comp-stub init swap=1
+
+10:33:37.168 -- EVENT: CONNECTED info='jezangla@vpn-etu.isima.fr:443 (193.55.95.49) via /TCPv4 on tun/10.9.0.6/ gw=[10.9.0.5/]'
