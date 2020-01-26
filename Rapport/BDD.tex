@@ -3,12 +3,74 @@
 \usepackage{array}
 \usepackage{textcomp}
 \usepackage{geometry}
+\usepackage{todonotes}
+\usepackage{makeidx}
+\usepackage{mdframed}
+\usepackage{listings}
+\graphicspath{{Schemas/}}
 
-
+\definecolor{light-gray}{gray}{0.95} %the shade of grey that stack exchange uses
+\lstset{
+  literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1,
+  numbers=left,
+  numbersep=10pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stepnumber=1,
+  stringstyle=\color{gray},
+  tabsize=4,
+  basicstyle=\small,
+  keywordstyle=\bf\color{blue},
+  backgroundcolor=\color{light-gray},
+  commentstyle=\color{ForestGreen},
+  showstringspaces=false
+}
 \geometry{hmargin=2cm, vmargin=2cm}
 
 \begin{document}
 
+\chapter{Matériel}
+\section{Machine virtuelle}
+	\subsection{Environnement de travail}
+		Cette partie explique les intstallations effectuées sur la machine virtuelle, nous détaillerons plus tard le choix des programmes installés.
+		Pour travailler sur la machine virtuelle, nous nous sommes connectés en \emph{ssh}.
+		\subsubsection{Système d'exploitation}
+			Le système d'exploitation de la machine virtuelle est \emph{CentOS}, pour le savoir il suffit de lire le contenu du fichier \emph{/proc/version}.
+			Dans notre cas, il contient : 
+			\begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
+				leftmargin=0, rightmargin=0, 
+				innerleftmargin=20, linecolor=darkgray]
+				Linux version 3.10.0-1062.4.3.el7.x86\_64 (mockbuild\@kbuilder.bsys.centos.org) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-39) (GCC) ) \#1 SMP Wed Nov 13 23:58:53 UTC 2019
+			\end{mdframed}
+			Cette information nous permettra de savoir comment installer les programmes dont nous auront besoin.
+		\subsubsection{Installation des logicielles}
+			Pour installer un programme, on peut utiliser le gestionnaire de paquets de CentOS : \emph{yum}.
+			Il faudra ensuite lancer les commandes suivantes, qui installent respectivement Java, le \emph{Système de Gestion de Base de Données}, screen, netcat, nmap
+			\begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
+				leftmargin=0, rightmargin=0, 
+				innerleftmargin=20, linecolor=darkgray]
+				\begin{lstlisting}[language=bash]
+					sudo yum install java-1.8.0-openjdk
+					sudo yum install mysql-server
+					sudo yum install screen
+					sudo yum install nc
+					sudo yum install nmap
+				\end{lstlisting}
+			\end{mdframed}
+		\subsubsection{Paramétrage du SGBD}
 \chapter{Choix BDD}
 \section{Base de données}
 \subsection{Choix de la base de donnée}
@@ -100,9 +162,48 @@
 		TODO : Diagramme de séquence
 \section{Implémentation}
 	\subsection{Langage}
-		TODO : Pourquoi java ?
+		La création du serveur devait à l'origine être rapide car on le considérait comme étant annexe. C'est pourquoi on a choisi l'utilisation d'une
+		technologie que nous connaissions déjà : \emph{Java}. Ce langage contient dans sa librairie standard tout ce qu'il faut pour développer un serveur.
+		De plus il existe une librairie java développée par Oracle pour la communication avec les bases de données MySQL.
+		\subsubsection{Machine Virtuelle}
+			Le \emph{Java} est un langage compilé particulier. Le code est tout d'abord compilé dans un langage intermédiaire appelé \emph{Bytecode}. 
+			Puis, il est exécuté dans une machine virtuelle appelée la \emph {Java Virtual Machine} en utilisant une nouvelle étape de compilation \emph {Just In Time}.
+			\par
+			\begin{center}
+				\includegraphics[scale=0.5]{java_compilation.png}
+			\end{center}
+			Les programmes développés et compilés en Java peuvent être exécuté sur toutes les machines possédant la JVM installée sans avoir aucun changement de code source ou bien de paramêtre de compulation.
 	\subsection{Fonctionnement des processus}
-		TODO : Runnable, Threads
+		L'organisation des processus en java est particulière. En effet, il n'y a qu'un seul processus lourd (à la différence des forks du langage C).
+		Ce processus lourd unique est la JVM. Tous les autres processus, y compris le processus principal de notre programme ne sont que des processus légers.
+		Il y a donc un partage des resources, et l'échange de données est plus simple. Il faut attention faire cependant aux accès simultanés aux ressources.
+		\subsubsection{Création de processus}
+			Le processus principal de notre programme est créé automatiquement par la JVM et il exécute le code de la fonction \emph{public static void main(String[] args)} qui est le point d'entrée de notre programme.
+			Pour construire d'autres processus il y a plusieurs manières. On va ici se concentrer sur la classe \emph{Thread} et l'interface \emph{Runnable}.
+		\subsubsection{Utilisation de \emph{Thread}}
+			Un \emph{Thread} est un objet qui exécute du code dans un autre processus. Pour cela, il suffit de créer un Thread et de le lancer en utilisant la méthode \emph{start()}.
+			\begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
+				leftmargin=0, rightmargin=0, 
+				innerleftmargin=20, linecolor=darkgray]
+				\begin{lstlisting}[language=Java]
+					Thread monThread = new Thread();
+					monThread.start();
+				\end{lstlisting}
+			\end{mdframed}
+			Pour changer le code exécuté, il suffit de redéfinir la méthode \emph{void run()} de Thread.
+			 \begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
+				leftmargin=0, rightmargin=0, 
+				innerleftmargin=20, linecolor=darkgray]
+				\begin{lstlisting}[language=Java]
+					Thread monThread = new Thread() {
+						@Override
+						public void run() {
+							System.out.println("Dans un nouveau processus");
+						}
+					}
+					monThread.start();
+				\end{lstlisting}
+			\end{mdframed}
 	\subsection{Patron de conception}
 		TODO : Fabric/Builder sur le serveur pour les clients\\
 		TODO : Singleton Serveur + (LocalCommand ???)
@@ -111,9 +212,9 @@
 		TODO : Insérer le protocole de communication écrit plus haut
 \chapter{Problèmes rencontrés}
 \section{VPN}
-	TODO: Problème de connection au Téléphone
+	TODO: Problème de connexion au Téléphone
 \section{VM}
-	TODO: Installation base de données\\
-	TODO: Machine éteinte !!!
+	\todo{Règles du firewall}
+	\todo{Machine éteinte !!!}
 \end{document}
 
