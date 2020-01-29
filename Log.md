@@ -27,7 +27,8 @@
 	Début de rapport sur la BDD, avec ajout de bibliographie
 
 # Jour 6 (27/11/19):
-## Jérémy (1h)
+## Jérémy (1h
+)
 	Choix de l'organisation de la BDD
 	Schema fais sur draw.io pour résumé la BDD
 ## Mathieu (2h)

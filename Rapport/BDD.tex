@@ -56,7 +56,8 @@
 				Linux version 3.10.0-1062.4.3.el7.x86\_64 (mockbuild\@kbuilder.bsys.centos.org) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-39) (GCC) ) \#1 SMP Wed Nov 13 23:58:53 UTC 2019
 			\end{mdframed}
 			Cette information nous permettra de savoir comment installer les programmes dont nous auront besoin.
-		\subsubsection{Installation des logicielles}
+	\subsection{Installation et paramétrage des logiciels}
+		\subsubsection{Installation des logiciels}
 			Pour installer un programme, on peut utiliser le gestionnaire de paquets de CentOS : \emph{yum}.
 			Il faudra ensuite lancer les commandes suivantes, qui installent respectivement Java, le \emph{Système de Gestion de Base de Données}, screen, netcat, nmap
 			\begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
@@ -71,6 +72,45 @@
 				\end{lstlisting}
 			\end{mdframed}
 		\subsubsection{Paramétrage du SGBD}
+			Il a tout d'abord fallu mettre le mot de passe administrateur pour la connexion au SGBD grâce à la commande suivante.
+			\begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
+				leftmargin=0, rightmargin=0, 
+				innerleftmargin=20, linecolor=darkgray]
+				\begin{lstlisting}[language=bash]
+					sudo mysqladmin variables -u root -p
+				\end{lstlisting}
+			\end{mdframed}
+			On peut ensuite modifier le contenu du SGBD en utilisant l'interpréteur de commandes mysql :
+			\par
+			\begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
+				leftmargin=0, rightmargin=0, 
+				innerleftmargin=20, linecolor=darkgray]
+				\begin{lstlisting}[language=bash]
+					mysql -u root -p
+				\end{lstlisting}
+			\end{mdframed}
+			Il faut enfin créer puis sélectionné la base de données que l'on veut utiliser :
+			\begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
+				leftmargin=0, rightmargin=0, 
+				innerleftmargin=20, linecolor=darkgray]
+				\begin{lstlisting}[language=bash]
+					CREATE DATABASE <nom de la base de données>
+					USE DATABASE <nom de la base de données>
+				\end{lstlisting}
+			\end{mdframed}
+		\subsubsection{Exécution du serveur java}
+			Screen est un logiciel qui permet de créer des terminaux (appelés \emph{sessions}), de s'y déconnecter puis reconnecté autant que désiré.
+			Ces terminaux continueront leur exécution en arrière plan. On peut donc utiliser l'entrée et la sortie standard pour communiquer avec le programme.
+			Pour se connecter à une session ou la créer si elle n'existe pas, on utilise l'option -R.
+			\begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
+				leftmargin=0, rightmargin=0, 
+				innerleftmargin=20, linecolor=darkgray]
+				\begin{lstlisting}[language=bash]
+					screen -R <nom_du_terminal>
+				\end{lstlisting}
+			\end{mdframed}
+\section{Ordiphone}
+	
 \chapter{Choix BDD}
 \section{Base de données}
 \subsection{Choix de la base de donnée}
