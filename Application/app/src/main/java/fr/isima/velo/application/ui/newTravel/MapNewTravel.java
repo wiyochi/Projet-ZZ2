@@ -38,6 +38,8 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
     private LocationManager locationManager;
     private boolean travelOn = false;
     private GoogleMap mMap;
+    private Location lastValidLocation;
+    private long lastTime;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,9 +66,11 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
     public void startTravel() {
         Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (loc == null) {
-            loc = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if (loc == null) {
+                loc = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            }
         }
-        LatLng nPos = new LatLng(loc.getLatitude(), loc.getLongitude());
 ;
         polyline = new PolylineOptions();
         polyline.color(Color.RED);
@@ -74,21 +78,34 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
 
         Log.d("NEW TRAVEL", "lat: " + loc.getLatitude() + ", lon: " + loc.getLongitude());
 
-        mMap.clear();
-        mMap.addMarker(new MarkerOptions().position(nPos));
+        lastValidLocation = loc;
+        lastTime = System.currentTimeMillis();
+        newPoint(loc);
 
-        polyline.add(nPos);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(nPos));
         mMap.moveCamera(CameraUpdateFactory.zoomBy(15));
         travelOn = true;
     }
 
     public void endTravel() {
+        lastTime = 0;
+        lastValidLocation = null;
         travelOn = false;
     }
 
     public boolean isTravelOn() {
         return travelOn;
+    }
+
+    public void newPoint(Location location) {
+        LatLng nPos = new LatLng(location.getLatitude(), location.getLongitude());
+
+        lastValidLocation = location;
+
+        mMap.clear();
+        mMap.addMarker(new MarkerOptions().position(nPos));
+        polyline.add(nPos);
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(nPos));
+        mMap.addPolyline(polyline);
     }
 
     @SuppressLint("MissingPermission")
@@ -112,12 +129,14 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
     @Override
     public void onLocationChanged(Location location) {
         if (travelOn) {
-            LatLng nPos = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.clear();
-            mMap.addMarker(new MarkerOptions().position(nPos));
-            polyline.add(nPos);
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(nPos));
-            mMap.addPolyline(polyline);
+            long t = System.currentTimeMillis();
+            long dt = t - lastTime;
+
+            Log.d("NEW_POINT", "Speed:" + location.getSpeed() + ", dt: " + dt);
+            if (location.distanceTo(lastValidLocation) < location.getSpeed() * dt / 1000) {
+                lastTime = t;
+                newPoint(location);
+            }
         }
         Log.d("MAP LOCATION CHANGED", "Lat: " + location.getLatitude() + " , Lon: " + location.getLongitude());
     }

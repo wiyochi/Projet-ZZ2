@@ -24,3 +24,13 @@
 # jour 7 (21/01/20)
 ## Mathieu (4h)
 	Ajout de la google map, du layout et du bouton dans l'activité newTravel. Ajout des affichages des chemins sur la map (à tester).
+
+# jour 8 (25/01/20)
+## Mathieu (3h)
+	Modification de la structure des éléments dans newTravel -> utilisation de 2 fragments dont 1 spécial pour la carte du trajet
+	+ 1er test sur une 15aine de kilomètres (cf capture écran) -> problème du GPS qui détecte des points loins sans raison
+
+# jour 9 (30/01/20)
+## Mathieu (2h)
+	Ajout du "lissage" des points fantômes en utilisant la vitesse
+	+ tests sur une vm d'android studio pour faire des tests de GPS sans devoir bouger
