@@ -34,3 +34,8 @@
 ## Mathieu (2h)
 	Ajout du "lissage" des points fantômes en utilisant la vitesse
 	+ tests sur une vm d'android studio pour faire des tests de GPS sans devoir bouger
+
+# jour 10 (04/02/20)
+## Mathieu (2h)
+	Mise en place de la lib de Jérémy dans l'application
+	Fix du bug du premier point

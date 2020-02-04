@@ -26,11 +26,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import fr.isima.velo.application.R;
+import fr.velo.lib.Journey;
+import fr.velo.lib.utils.Point4D;
 
 public class MapNewTravel extends Fragment implements OnMapReadyCallback, LocationListener {
 
@@ -40,6 +43,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
     private GoogleMap mMap;
     private Location lastValidLocation;
     private long lastTime;
+    private Journey journey;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +62,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
         else {
             configureLocationManager();
         }
+        journey = new Journey("un truc bidon");
 
         return root;
     }
@@ -69,6 +74,8 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
             loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (loc == null) {
                 loc = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+            } else {
+                Log.d("NEW_TRAVEL", "Pas de provider");
             }
         }
 ;
@@ -99,12 +106,13 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
     public void newPoint(Location location) {
         LatLng nPos = new LatLng(location.getLatitude(), location.getLongitude());
 
-        lastValidLocation = location;
+        journey.insert(new Point4D(location.getLatitude(), location.getLongitude(), location.getAltitude(), lastTime));
 
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(nPos));
         polyline.add(nPos);
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(nPos));
+        CameraPosition cam = mMap.getCameraPosition();
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(nPos, cam.zoom, cam.tilt, cam.bearing)));
         mMap.addPolyline(polyline);
     }
 
@@ -135,6 +143,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
             Log.d("NEW_POINT", "Speed:" + location.getSpeed() + ", dt: " + dt);
             if (location.distanceTo(lastValidLocation) < location.getSpeed() * dt / 1000) {
                 lastTime = t;
+                lastValidLocation = location;
                 newPoint(location);
             }
         }
