@@ -1,6 +1,9 @@
 package fr.velo.lib.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import org.junit.Test;
 
@@ -11,13 +14,13 @@ public class JourneysTest {
 
 	@Test
 	public void init() {
-		Journey j = new Journey("");
+		Journey j = new Journey();
 		assertTrue(j.size() == 0);
 	}
 	
 	@Test
 	public void insert() {
-		Journey j = new Journey("");
+		Journey j = new Journey();
 		
 		j.insert(new Point4D(1, 1, 1, 1));
 		
@@ -27,7 +30,7 @@ public class JourneysTest {
 	@SuppressWarnings("unused")
 	@Test
 	public void iterator() {
-		Journey j = new Journey("");
+		Journey j = new Journey();
 		int i = 0;
 		for (Point4D point4d : j) ++i;
 		assertTrue(i == 0);
@@ -39,24 +42,30 @@ public class JourneysTest {
 	
 	@Test
 	public void string() {
-		Journey j = new Journey("");
+		Journey j = new Journey();
 		assertTrue(j.toString().equals(":"));
-
-		Journey j2 = new Journey("nom");
-		assertTrue(j2.toString().equals("nom:"));
+		j.setName("nom");
+		assertTrue(j.toString().equals("nom:"));
 		
 
-		Journey j3 = new Journey("nom");
+		Journey j3 = new Journey();
+		j3.setName("nom");
 		j3.insert(new Point4D(1, 1, 1, 1));
 		assertTrue(j3.toString().equals("nom:1,000000+1,000000+1,000000+1,000000;"));
 		
 
-		Journey j4 = new Journey("nom");
+		Journey j4 = new Journey();
+		j4.setName("nom");
 		j4.insert(new Point4D(1, 1, 1, 1));
 		j4.insert(new Point4D(2, 2, 2, 2));
 		
 		assertTrue(j4.toString().equals("nom:1,000000+1,000000+1,000000+1,000000;2,000000+2,000000+2,000000+2,000000;"));
 	}
 	
+	@Test
+	public void date() {
+		Journey j = new Journey();
+		assertTrue(j.getDate().truncatedTo(ChronoUnit.MINUTES).equals(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
+	}
 
 }
