@@ -1,6 +1,7 @@
 package fr.isima.velo.application.ui.history;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +29,9 @@ public class HistoryFragment extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        Iterator<Journey> it = JourneyHistory.getInstance().iterator();
-        while (it.hasNext()) {
-            CompactTravelFragment c = new CompactTravelFragment(it.next());
+        JourneyHistory history = JourneyHistory.getInstance();
+        for (int i = history.size()-1; i >= 0 && i >= history.size()-11; i--) {
+            CompactTravelFragment c = new CompactTravelFragment(history.get(i));
             fragmentTransaction.add(R.id.container_history, c, "one");
         }
 
