@@ -16,7 +16,7 @@ public class JourneyHistory implements Iterable<Journey>{
 	}
 	
 	public void insert(Journey j) {
-		int index = Collections.binarySearch(history, j, Comparator.comparing(Journey::getDate));
+		int index = Collections.binarySearch(history, j, Comparator.comparing(Journey::getDateTime));
 	    if (index < 0) {
 	        index = -index - 1;
 	    }
