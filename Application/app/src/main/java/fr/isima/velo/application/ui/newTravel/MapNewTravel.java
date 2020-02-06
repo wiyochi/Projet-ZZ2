@@ -40,6 +40,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import fr.isima.velo.application.R;
 import fr.velo.lib.Journey;
+import fr.velo.lib.JourneyHistory;
 import fr.velo.lib.utils.Point4D;
 
 public class MapNewTravel extends Fragment implements OnMapReadyCallback, LocationListener {
@@ -69,7 +70,6 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
         else {
             configureLocationManager();
         }
-        journey = new Journey();
 
         return root;
     }
@@ -85,6 +85,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
                 Log.d("NEW_TRAVEL", "Pas de provider");
             }
         }
+        journey = new Journey();
 ;
         polyline = new PolylineOptions();
         polyline.color(Color.RED);
@@ -96,7 +97,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
         lastTime = System.currentTimeMillis();
         newPoint(loc);
 
-        mMap.moveCamera(CameraUpdateFactory.zoomBy(15));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(18));
         travelOn = true;
     }
 
@@ -115,16 +116,16 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
             return true;
         });
 
-        popupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                lastTime = 0;
-                lastValidLocation = null;
-                travelOn = false;
+        popupButton.setOnClickListener(v -> {
+            journey.setName(popupText.getText().toString());
+            JourneyHistory.getInstance().insert(journey);
+            Log.d("END TRAVEL", "travel: " + journey.toString());
 
-                journey.setName(popupText.getText().toString());
-                Log.d("END TRAVEL", "name:  " + journey.getName());
-            }
+            lastTime = 0;
+            lastValidLocation = null;
+            travelOn = false;
+            mMap.clear();
+            popupWindow.dismiss();
         });
     }
 
