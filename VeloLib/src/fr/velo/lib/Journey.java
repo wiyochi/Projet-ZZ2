@@ -1,21 +1,42 @@
 package fr.velo.lib;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import fr.velo.lib.utils.Point4D;
 
-public final class Journey implements Iterable<Point4D> {
-	private final List<Point4D> points;
+public final class Journey implements Iterable<Point4D>, Serializable {
+	private static final long serialVersionUID = -6511317952698573048L;
+	private List<Point4D> points;
 	private String name;
-	private final LocalDateTime date;
+	private Date date;
 
 	public Journey() {
 		points = new ArrayList<Point4D>();
-		date = LocalDateTime.now();
 		name="";
+		date = Calendar.getInstance().getTime();
+	}
+	
+	public Journey(InputStream stream) {
+		try {
+			Journey j = (Journey) new ObjectInputStream(stream).readObject();
+			points = j.points;
+			name = j.name;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -39,7 +60,7 @@ public final class Journey implements Iterable<Point4D> {
 		return name;
 	}
 	
-	public LocalDateTime getDate() {
+	public Date getDate() {
 		return date;
 	}
 	
@@ -53,4 +74,14 @@ public final class Journey implements Iterable<Point4D> {
 		}
 		return builder.toString();
 	}
+	
+	public void saveToStream(OutputStream stream)
+	{
+		try {
+			new ObjectOutputStream(stream).writeObject(this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
