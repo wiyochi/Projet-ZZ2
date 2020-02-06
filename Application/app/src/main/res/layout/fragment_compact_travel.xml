@@ -4,8 +4,16 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/testFragment"
+        android:id="@+id/compact_travel_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fragment" />
+        android:text="FRAGMENT"/>
+    <TextView
+        android:id="@+id/compact_travel_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/compact_travel_duration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
