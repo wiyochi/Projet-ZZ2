@@ -1,5 +1,6 @@
 package fr.velo.lib;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,10 +10,12 @@ import fr.velo.lib.utils.Point4D;
 public final class Journey implements Iterable<Point4D> {
 	private final List<Point4D> points;
 	private String name;
+	private final LocalDateTime date;
 
-	public Journey(String name) {
+	public Journey() {
 		points = new ArrayList<Point4D>();
-		this.name = name;
+		date = LocalDateTime.now();
+		name="";
 	}
 
 	@Override
@@ -28,6 +31,18 @@ public final class Journey implements Iterable<Point4D> {
 		return points.size();
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public LocalDateTime getDate() {
+		return date;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder(name);
@@ -36,7 +51,6 @@ public final class Journey implements Iterable<Point4D> {
 			builder.append(point4d);
 			builder.append(';');
 		}
-		
 		return builder.toString();
 	}
 }
