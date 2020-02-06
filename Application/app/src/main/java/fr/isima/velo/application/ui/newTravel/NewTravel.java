@@ -22,13 +22,14 @@ public class NewTravel extends Fragment {
     private MapNewTravel map;
 
     private Button newTravelButton;
+    private View view;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_new_travel, container, false);
-        //setContentView(R.layout.fragment_new_travel);
+        view = root;
 
         newTravelButton = root.findViewById(R.id.button_new_travel);
 
@@ -61,7 +62,7 @@ public class NewTravel extends Fragment {
                 } else {
                     Log.d("BUTTON", "End Travel");
 
-                    map.endTravel();
+                    map.endTravel(view);
 
                     newTravelButton.setText("Nouveau trajet");
                 }

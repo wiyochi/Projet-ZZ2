@@ -12,9 +12,14 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -62,7 +67,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
         else {
             configureLocationManager();
         }
-        journey = new Journey("un truc bidon");
+        journey = new Journey();
 
         return root;
     }
@@ -93,10 +98,22 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
         travelOn = true;
     }
 
-    public void endTravel() {
+    public void endTravel(View view) {
         lastTime = 0;
         lastValidLocation = null;
         travelOn = false;
+
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
+        final View popupView = inflater.inflate(R.layout.fragment_enter_name_travel, null);
+
+        final PopupWindow popupWindow = new PopupWindow(popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        popupView.setOnTouchListener((v, event) -> {
+            popupWindow.dismiss();
+            return true;
+        });
     }
 
     public boolean isTravelOn() {
