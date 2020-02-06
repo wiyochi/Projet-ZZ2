@@ -2,9 +2,6 @@ package fr.velo.lib.tests;
 
 import static org.junit.Assert.assertTrue;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-
 import org.junit.Test;
 
 import fr.velo.lib.Journey;
@@ -65,6 +62,8 @@ public class JourneysTest {
 	@Test
 	public void date() {
 		Journey j = new Journey();
+		assertTrue(System.currentTimeMillis() - j.getDateTime() <= 60000); // On regarde si le temps actuel est équivalent à la date de création de l'objet juste avant à 1 min près.
+		
 		//assertTrue(j.getDate().truncatedTo(ChronoUnit.MINUTES).equals(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
 	}
 
