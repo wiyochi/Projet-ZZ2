@@ -17,5 +17,5 @@
     <string name="title_activity_new_travel">Nouveau Trajet</string>
     <string name="pop_up_title">Création d\'un nouveau trajet</string>
     <string name="pop_up_new_name">Entrez un nom pour le trajet</string>
-    <string name="pop_up_launch">ok</string>
+    <string name="pop_up_launch">Valider</string>
 </resources>

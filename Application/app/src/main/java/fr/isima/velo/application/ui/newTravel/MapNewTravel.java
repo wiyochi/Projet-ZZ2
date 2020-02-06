@@ -17,9 +17,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -99,20 +101,30 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
     }
 
     public void endTravel(View view) {
-        lastTime = 0;
-        lastValidLocation = null;
-        travelOn = false;
-
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.fragment_enter_name_travel, null);
 
         final PopupWindow popupWindow = new PopupWindow(popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        final Button popupButton = popupView.findViewById(R.id.pop_up_validate);
+        final TextView popupText = popupView.findViewById(R.id.pop_up_input);
 
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         popupView.setOnTouchListener((v, event) -> {
             popupWindow.dismiss();
             return true;
+        });
+
+        popupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lastTime = 0;
+                lastValidLocation = null;
+                travelOn = false;
+
+                journey.setName(popupText.getText().toString());
+                Log.d("END TRAVEL", "name:  " + journey.getName());
+            }
         });
     }
 
