@@ -1,6 +1,14 @@
 package fr.velo.lib.tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import org.junit.Test;
 
@@ -65,6 +73,21 @@ public class JourneysTest {
 		assertTrue(System.currentTimeMillis() - j.getDateTime() <= 60000); // On regarde si le temps actuel est équivalent à la date de création de l'objet juste avant à 1 min près.
 		
 		//assertTrue(j.getDate().truncatedTo(ChronoUnit.MINUTES).equals(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
+	}
+	
+	@Test
+	public void readWrite() {
+		Journey j = new Journey();
+		try {
+			File f = File.createTempFile("tmp", null);
+			j.saveToStream(new FileOutputStream(f));
+			Journey j2 = new Journey(new FileInputStream(f));
+			assertTrue(j.equals(j2));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
