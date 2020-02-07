@@ -39,3 +39,13 @@
 ## Mathieu (2h)
 	Mise en place de la lib de Jérémy dans l'application
 	Fix du bug du premier point
+
+# jour 11 (06/02/20)
+## Mathieu (4h)
+	Choix du nom du trajet fini avec un pop up  et ajout dans l'historique
+	affichage basique de l'historique
+
+# jour 12 (07/02/20)
+## Mathieu (2h)
+	modification historique pour affichre les 10 derniers trajets
+	Tests pour la sérialisation et l'enregistrement dans des fichiers des trajets

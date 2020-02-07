@@ -1,5 +1,6 @@
 package fr.isima.velo.application.ui.gallery;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,13 +49,17 @@ public class GalleryFragment extends Fragment {
             public void onClick(View v) {
                 Journey journey = new Journey();
                 journey.insert(new Point4D(new Random().nextDouble(), new Random().nextDouble(), new Random().nextDouble(), new Random().nextDouble()));
-                journey.setName("n'importe " + new Random().nextInt());
-                Log.d("SAVE", journey.toString());
+                journey.setName("journey_" + Math.abs(new Random().nextInt()));
                 try {
                     File folder = new File(root.getContext().getFilesDir(), "saves");
                     if (!folder.exists())
-                        folder.mkdir();
-                    journey.saveToStream(new FileOutputStream(new File(folder,journey.getName() + ".txt")));
+                        folder.mkdirs();
+                    File file = new File(folder,journey.getName() + ".txt");
+                    if (!file.exists())
+                        file.createNewFile();
+                    journey.saveToStream(new FileOutputStream(file));
+                    Log.d("SAVE", file.getAbsolutePath() + "\n" + journey.toString());
+
                 } catch (IOException e) {
                     Log.e("un truc", "erreur création", e);
                 }
@@ -67,6 +72,7 @@ public class GalleryFragment extends Fragment {
             public void onClick(View v) {
                 File folder = new File(root.getContext().getFilesDir(), "saves");
                 for (File file : folder.listFiles()) {
+                    Log.d("LOAD", file.getAbsolutePath());
                     try {
                         Journey journey = new Journey(new FileInputStream(file));
                         Log.d("LOAD:", journey.toString());
