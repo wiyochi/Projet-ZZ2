@@ -7,6 +7,10 @@ public final class Point4D extends Point3D implements Serializable {
 	private static final long serialVersionUID = 7762600229464590313L;
 	private double t;
 
+	public Point4D() {
+		this(0, 0, 0, 0);
+	}
+	
 	public Point4D(double x, double y, double z, double t) {
 		super(x, y, z);
 		this.t = t;
