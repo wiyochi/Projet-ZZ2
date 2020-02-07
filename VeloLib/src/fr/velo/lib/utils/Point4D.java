@@ -1,5 +1,8 @@
 package fr.velo.lib.utils;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public final class Point4D extends Point3D implements Serializable {
@@ -32,4 +35,20 @@ public final class Point4D extends Point3D implements Serializable {
 	public String toString() {
 		return String.format("%s+%f", super.toString(), getT());
 	}
+	
+	private void readObject(ObjectInputStream aInputStream) throws ClassNotFoundException, IOException 
+    {       
+        setX(aInputStream.readDouble());
+        setY(aInputStream.readDouble());
+        setZ(aInputStream.readDouble());
+        setT(aInputStream.readDouble());
+    }
+ 
+    private void writeObject(ObjectOutputStream aOutputStream) throws IOException 
+    {
+        aOutputStream.writeDouble(getX());
+        aOutputStream.writeDouble(getY());
+        aOutputStream.writeDouble(getZ());
+        aOutputStream.writeDouble(getT());
+    }
 }
