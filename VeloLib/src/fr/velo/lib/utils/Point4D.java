@@ -1,7 +1,10 @@
 package fr.velo.lib.utils;
 
-public final class Point4D extends Point3D {
+import java.io.Serializable;
 
+public final class Point4D extends Point3D implements Serializable {
+
+	private static final long serialVersionUID = 7762600229464590313L;
 	private double t;
 
 	public Point4D(double x, double y, double z, double t) {
