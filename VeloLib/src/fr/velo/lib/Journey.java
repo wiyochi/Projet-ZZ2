@@ -83,4 +83,14 @@ public final class Journey implements Iterable<Point4D>, Serializable {
 		}
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Journey))
+			return false;
+		Journey j = (Journey) obj;
+		if (j.name != name || j.dateTime != dateTime)
+			return false;
+		return points.equals(j.points);
+	}
+
 }
