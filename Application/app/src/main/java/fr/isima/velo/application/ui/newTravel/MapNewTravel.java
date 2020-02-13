@@ -5,11 +5,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,6 +39,13 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Objects;
 
 import fr.isima.velo.application.R;
 import fr.velo.lib.Journey;
@@ -74,6 +83,43 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
         return root;
     }
 
+    public void getScreenShot(String filename) {
+        GoogleMap.SnapshotReadyCallback callback = new GoogleMap.SnapshotReadyCallback() {
+            @Override
+            public void onSnapshotReady(Bitmap snapshot) {
+                String path = getView().getContext().getFilesDir() + "/maps/" + filename + ".bmp";
+                Log.d("SCREEN", path);
+                OutputStream out = null;
+                File imageFile = new File(path);
+
+                try {
+                    imageFile.getParentFile().mkdirs();
+                    imageFile.createNewFile();
+                    out = new FileOutputStream(imageFile);
+                    // choose JPEG format
+                    snapshot.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                    out.flush();
+                } catch (FileNotFoundException e) {
+                    Log.e("FILE", "FileNotFound", e);
+                } catch (IOException e) {
+                    Log.e("FILE", "Other exception", e);
+                } finally {
+
+                    try {
+                        if (out != null) {
+                            out.close();
+                        }
+
+                    } catch (Exception exc) {
+                    }
+
+                }
+            }
+        };
+
+        mMap.snapshot(callback);
+    }
+
     @SuppressLint("MissingPermission")
     public void startTravel() {
         Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -91,6 +137,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
         polyline.color(Color.RED);
         polyline.width(3);
 
+        assert loc != null;
         Log.d("NEW TRAVEL", "lat: " + loc.getLatitude() + ", lon: " + loc.getLongitude());
 
         lastValidLocation = loc;
@@ -101,9 +148,10 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
         travelOn = true;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public void endTravel(View view) {
         // inflate the layout of the popup window
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) Objects.requireNonNull(getActivity()).getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
         final View popupView = inflater.inflate(R.layout.fragment_enter_name_travel, null);
 
         final PopupWindow popupWindow = new PopupWindow(popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
@@ -118,6 +166,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
 
         popupButton.setOnClickListener(v -> {
             journey.setName(popupText.getText().toString());
+            getScreenShot(journey.getName());
             JourneyHistory.getInstance().insert(journey);
             Log.d("END TRAVEL", "travel: " + journey.toString());
 

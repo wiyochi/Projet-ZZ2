@@ -7,13 +7,22 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Objects;
 
 import fr.isima.velo.application.R;
 
@@ -35,7 +44,7 @@ public class NewTravel extends Fragment {
 
         map = new MapNewTravel();
 
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         fragmentTransaction.add(R.id.container, map, "one");
@@ -48,24 +57,21 @@ public class NewTravel extends Fragment {
 
     private void configureButton() {
 
-        newTravelButton.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("MissingPermission")
-            @Override
-            public void onClick(View v) {
+        newTravelButton.setOnClickListener(v -> {
 
-                if (!map.isTravelOn()) {
-                    Log.d("BUTTON", "Start Travel");
+            if (!map.isTravelOn()) {
+                Log.d("BUTTON", "Start Travel");
 
-                    map.startTravel();
+                map.startTravel();
 
-                    newTravelButton.setText("Arrêter le trajet");
-                } else {
-                    Log.d("BUTTON", "End Travel");
+                newTravelButton.setText("Arrêter le trajet");
+            } else {
+                Log.d("BUTTON", "End Travel");
 
-                    map.endTravel(view);
+                map.endTravel(view);
 
-                    newTravelButton.setText("Nouveau trajet");
-                }
+                newTravelButton.setText("Nouveau trajet");
+
             }
         });
     }
