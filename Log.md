@@ -49,3 +49,8 @@
 ## Mathieu (2h)
 	modification historique pour affichre les 10 derniers trajets
 	Tests pour la sérialisation et l'enregistrement dans des fichiers des trajets
+
+# jour 13 (13/02/20)
+## Mathieu (3h)
+	Ajout des cards pour afficher les compactedTravel
+	Prise de screen lors de la création d'un travel et affichage dans les cards
