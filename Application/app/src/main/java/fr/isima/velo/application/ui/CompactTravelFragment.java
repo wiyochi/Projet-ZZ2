@@ -1,9 +1,7 @@
 package fr.isima.velo.application.ui;
 
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.concurrent.TimeUnit;
 
 import fr.isima.velo.application.R;
 import fr.velo.lib.Journey;
@@ -47,7 +40,8 @@ public class CompactTravelFragment extends Fragment {
         time = root.findViewById(R.id.compact_travel_duration);
 
         name.setText(journey.getName());
-        date.setText("" + journey.getDateTime());
+        long d = journey.getDateTime();
+        date.setText("" + TimeUnit.MILLISECONDS.toDays(d) + "::" + TimeUnit.MILLISECONDS.toHours(d) + "::" + TimeUnit.MILLISECONDS.toMinutes(d));
         time.setText("none");
 
         image = root.findViewById(R.id.image_card);
