@@ -22,6 +22,7 @@ public final class Journey implements Iterable<Point4D>, Serializable {
 		points = new ArrayList<Point4D>();
 		name = new String("");
 		dateTime = System.currentTimeMillis();
+		
 	}
 
 	public Journey(InputStream stream) {
