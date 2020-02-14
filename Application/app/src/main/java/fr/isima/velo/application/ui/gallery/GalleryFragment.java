@@ -43,42 +43,14 @@ public class GalleryFragment extends Fragment {
             }
         });
 
-        final Button save = root.findViewById(R.id.buttonSave);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Journey journey = new Journey();
-                journey.insert(new Point4D(new Random().nextDouble(), new Random().nextDouble(), new Random().nextDouble(), new Random().nextDouble()));
-                journey.setName("journey_" + Math.abs(new Random().nextInt()));
-                try {
-                    File folder = new File(root.getContext().getFilesDir(), "saves");
-                    if (!folder.exists())
-                        folder.mkdirs();
-                    File file = new File(folder,journey.getName() + ".txt");
-                    if (!file.exists())
-                        file.createNewFile();
-                    journey.saveToStream(new FileOutputStream(file));
-                    Log.d("SAVE", file.getAbsolutePath() + "\n" + journey.toString());
-
-                } catch (IOException e) {
-                    Log.e("un truc", "erreur création", e);
-                }
-            }
-        });
-
-        final Button load = root.findViewById(R.id.buttonLoad);
-        load.setOnClickListener(new View.OnClickListener() {
+        final Button suppr = root.findViewById(R.id.buttonSuppr);
+        suppr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 File folder = new File(root.getContext().getFilesDir(), "saves");
                 for (File file : folder.listFiles()) {
-                    Log.d("LOAD", file.getAbsolutePath());
-                    try {
-                        Journey journey = new Journey(new FileInputStream(file));
-                        Log.d("LOAD:", journey.toString());
-                    } catch (IOException e) {
-                        Log.e("un truc", "erreur load", e);
-                    }
+                    Log.d("SUPPR", file.getAbsolutePath());
+                    file.delete();
                 }
             }
         });

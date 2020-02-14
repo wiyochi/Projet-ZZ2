@@ -15,14 +15,8 @@
         android:textSize="20sp"/>
 
     <Button
-        android:id="@+id/buttonSave"
+        android:id="@+id/buttonSuppr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save" />
-
-    <Button
-        android:id="@+id/buttonLoad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Load" />
+        android:text="Suppr" />
 </LinearLayout>

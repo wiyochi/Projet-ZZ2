@@ -168,6 +168,21 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
             journey.setName(popupText.getText().toString());
             getScreenShot(journey.getName());
             JourneyHistory.getInstance().insert(journey);
+
+            try {
+                File folder = new File(getView().getContext().getFilesDir(), "saves");
+                if (!folder.exists())
+                    folder.mkdirs();
+                File file = new File(folder,journey.getName() + ".txt");
+                if (!file.exists())
+                    file.createNewFile();
+                journey.saveToStream(new FileOutputStream(file));
+                Log.d("SAVE", file.getAbsolutePath() + "\n" + journey.toString());
+
+            } catch (IOException e) {
+                Log.e("SAVE", "failed to save file", e);
+            }
+
             Log.d("END TRAVEL", "travel: " + journey.toString());
 
             lastTime = 0;
