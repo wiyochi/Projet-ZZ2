@@ -137,53 +137,7 @@
 \section{Communication avec l'application}
 \subsection{Serveur}
 \subsection{Protocole}
-	\begin{center}
-		Liste des messages possibles dans le sens clients $\rightarrow$ serveur
-		\par
-		\begin{tabular}{|l|l|}
-			\hline
-			Commande & Utilisation\\
-			\hline
-			Subscribe:$<id>:<mdp>$ & Permet de s'inscrire\\
-			\hline
-			Connect:$<id>:<mdp>$ & Permet de se connecter à son compte\\
-			\hline
-			\hline
-			History:$<debut>:<fin>$ & Permet de récupérer $x$ trajets entre début et fin (en id)\\
-			\hline
-			Projects:$<debut>:<fin>$ & Permet de récupérer les $x$ projets entre début et fin\\
-			\hline
-			\hline
-			NewP:$<nom>:<x+y+z;...>$ & Ajoute un nouveau projet\\
-			\hline
-			NewJ:$<nom>:<x+y+z+t;...>$ & Ajoute un nouveau trajet\\
-			\hline
-			EditP:$<id>:<x+y+z;...>$ & Modifie un projet\\
-			\hline
-		\end{tabular}
-	\end{center}
-	\begin{center}
-		Liste des messages possibles dans le sens serveur $\rightarrow$ client
-		\par
-		\begin{tabular}{|l|l|}
-			\hline
-			Commande & Utilisation\\
-			\hline
-			Subscribed:$<id>$ & Confirme l'inscription \\
-			\hline
-			Unsubscribed & Erreur lors de l'inscripton \\
-			\hline
-			Connected:$<id>$ & Valide la connection à son compte\\
-			\hline
-			Unconnected & Erreur lors de la connection \\
-			\hline
-			\hline
-			Project:$<id>:<nom>:<x+y+z;...;x+y+z>$ & Envoie des informations sur un projet\\
-			\hline
-			Journey:$<id>:<nom>:<d>:<x+y+z+t...>$ & Envoie des informations sur un projet\\
-			\hline
-		\end{tabular}
-	\end{center}
+	
 \chapter{Serveur}
 \section{Architecture}
 	\subsection{Processus}
@@ -226,8 +180,8 @@
 				leftmargin=0, rightmargin=0, 
 				innerleftmargin=20, linecolor=darkgray]
 				\begin{lstlisting}[language=Java]
-					Thread monThread = new Thread();
-					monThread.start();
+Thread monThread = new Thread();
+monThread.start();
 				\end{lstlisting}
 			\end{mdframed}
 			Pour changer le code exécuté, il suffit de redéfinir la méthode \emph{void run()} de Thread.
@@ -235,12 +189,12 @@
 				leftmargin=0, rightmargin=0, 
 				innerleftmargin=20, linecolor=darkgray]
 				\begin{lstlisting}[language=Java]
-					Thread monThread = new Thread() {
-						@Override
-						public void run() {
-							System.out.println("Dans un nouveau processus");
-						}
-					}
+Thread monThread = new Thread() {
+	@Override
+	public void run() {
+		System.out.println("Nouveau processus");
+	}
+}
 					monThread.start();
 				\end{lstlisting}
 			\end{mdframed}
@@ -248,8 +202,79 @@
 		TODO : Fabric/Builder sur le serveur pour les clients\\
 		TODO : Singleton Serveur + (LocalCommand ???)
 	\subsection{Communication réseau}
-		TODO : Expliquer Serveur Socket et Socket, le accept()\\
-		TODO : Insérer le protocole de communication écrit plus haut
+		\subsubsection{Connection avec le client}
+			En Java, on utilise les objets de type \emph{Socket} pour faire de la communication en réseau. C'est objets utilisent le protocole TCP pour communiquer et permettent donc de s'assurer de l'état de la connection.
+			Un premier socket (\emph{ServerSocket}) permet d'attendre qu'un client se connecte et de créer un \emph{Socket} pour communiquer avec lui.
+			\begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
+				leftmargin=0, rightmargin=0, 
+				innerleftmargin=20, linecolor=darkgray]
+				\begin{lstlisting}[language=Java]
+ServerSocket socket = new ServerSocket(PORT);
+while (true) {
+	Socket clientSocket = socket.accept();
+}
+				\end{lstlisting}
+			\end{mdframed}
+			Ensuite pour échanger avec le client, on utilise les flux d'entrée et de sortie fournis par le Socket.
+			Les \emph{BufferedReader} et \emph{PrintWriter} sont des objets qui permettent de traiter les flux plus simplement, grâce à des chaînes de caractères.
+			\begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
+				innerleftmargin=20, linecolor=darkgray]
+				\begin{lstlisting}[language=Java]
+InputStream input = socket.getInputStream();
+OutputStream output = socket.getOutputSteam();
+
+BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+PrintWriter writer = new PrintWriter(output);
+				\end{lstlisting}
+			\end{mdframed}
+		\subsubsection{Protocole de communication}
+			\begin{center}
+				Liste des messages possibles dans le sens clients $\rightarrow$ serveur
+				\par
+				\begin{tabular}{|l|l|}
+					\hline
+					Commande & Utilisation\\
+					\hline
+					Subscribe:$<id>:<mdp>$ & Permet de s'inscrire\\
+					\hline
+					Connect:$<id>:<mdp>$ & Permet de se connecter à son compte\\
+					\hline
+					\hline
+					History:$<debut>:<fin>$ & Permet de récupérer $x$ trajets entre début et fin (en id)\\
+					\hline
+					Projects:$<debut>:<fin>$ & Permet de récupérer les $x$ projets entre début et fin\\
+					\hline
+					\hline
+					NewP:$<nom>:<x+y+z;...>$ & Ajoute un nouveau projet\\
+					\hline
+					NewJ:$<nom>:<x+y+z+t;...>$ & Ajoute un nouveau trajet\\
+					\hline
+					EditP:$<id>:<x+y+z;...>$ & Modifie un projet\\
+					\hline
+				\end{tabular}
+			\end{center}
+			\begin{center}
+				Liste des messages possibles dans le sens serveur $\rightarrow$ client
+				\par
+				\begin{tabular}{|l|l|}
+					\hline
+					Commande & Utilisation\\
+					\hline
+					Subscribed:$<id>$ & Confirme l'inscription \\
+					\hline
+					Unsubscribed & Erreur lors de l'inscripton \\
+					\hline
+					Connected:$<id>$ & Valide la connection à son compte\\
+					\hline
+					Unconnected & Erreur lors de la connection \\
+					\hline
+					\hline
+					Project:$<id>:<nom>:<x+y+z;...;x+y+z>$ & Envoie des informations sur un projet\\
+					\hline
+					Journey:$<id>:<nom>:<d>:<x+y+z+t...>$ & Envoie des informations sur un projet\\
+					\hline
+				\end{tabular}
+			\end{center}
 \chapter{Problèmes rencontrés}
 \section{VPN}
 	TODO: Problème de connexion au Téléphone
