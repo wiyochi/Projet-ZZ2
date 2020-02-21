@@ -20,7 +20,8 @@ public class JourneyHistory implements Iterable<Journey> {
 		if (index < 0) {
 			index = -index - 1;
 		}
-		history.add(index, j);
+		if (history.get(index).getDateTime() != j.getDateTime())
+			history.add(index, j);
 	}
 
 	public Journey get(int i) {
