@@ -200,7 +200,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
     public void newPoint(Location location) {
         LatLng nPos = new LatLng(location.getLatitude(), location.getLongitude());
 
-        journey.insert(new Point4D(location.getLatitude(), location.getLongitude(), location.getAltitude(), lastTime));
+        journey.insert(new Point4D(location.getLatitude(), location.getLongitude(), location.getAltitude(), System.currentTimeMillis()));
 
         mMap.clear();
         mMap.addMarker(new MarkerOptions().position(nPos));
@@ -235,7 +235,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
             long dt = t - lastTime;
 
             Log.d("NEW_POINT", "Speed:" + location.getSpeed() + ", dt: " + dt);
-            if (location.distanceTo(lastValidLocation) < location.getSpeed() * dt / 1000) {
+            if (location.distanceTo(lastValidLocation) < 42 * dt / 1000) {
                 lastTime = t;
                 lastValidLocation = location;
                 newPoint(location);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.icu.text.DateFormat;
 import android.icu.text.DecimalFormat;
+import android.icu.text.NumberFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,12 +54,23 @@ public class CompactTravelFragment extends Fragment {
         date.setText(DateFormat.getInstance().format(d));
 
         double dt = 0;
+        double t = 0;
         Iterator<Point4D> it = journey.iterator();
-        while (it.hasNext()) {
-            dt += it.next().getT();
+        if (it.hasNext()) {
+            t = it.next().getT();
         }
-        DecimalFormat f = new DecimalFormat(".##");
-        time.setText("Durée: " + dt + " format: " + f.format(dt));
+        while (it.hasNext()) {
+            double timePoint = it.next().getT();
+            dt += timePoint - t;
+            t = timePoint;
+        }
+        NumberFormat f = NumberFormat.getInstance();
+        f.setMaximumIntegerDigits(2);
+        f.setMinimumIntegerDigits(2);
+        int sec = (int)dt / 1000;
+        int min = sec / 60;
+        int heu = min / 60;
+        time.setText("Durée: " + f.format(heu) + ":" + f.format(min % 60) + ":" + f.format(sec % 60));
 
         image = root.findViewById(R.id.image_card);
         getImage(root);
