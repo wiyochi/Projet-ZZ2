@@ -54,3 +54,11 @@
 ## Mathieu (3h)
 	Ajout des cards pour afficher les compactedTravel
 	Prise de screen lors de la création d'un travel et affichage dans les cards
+
+# jour 14 (17/02/20)
+## Mathieu (3h)
+	Ajout de l'activity lorsqu'on clique sur une card
+
+# jour 15 (21/02/20)
+## Mathieu (1h)
+	Modification du format des temps inscrit dans les points générés par un trajet
