@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#62def8">
+    android:background="@color/cardview_light_background">
 
     <TextView
         android:id="@+id/textView2"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/pop_up_new_name"
         android:inputType="text"
-        android:imeActionLabel="@string/pop_up_launch" />
+        android:imeActionLabel="@string/pop_up_launch"/>
 
     <Button
         android:id="@+id/pop_up_validate"

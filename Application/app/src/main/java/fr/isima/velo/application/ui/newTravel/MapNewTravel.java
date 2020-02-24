@@ -19,7 +19,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
@@ -156,10 +159,17 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
 
         final PopupWindow popupWindow = new PopupWindow(popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
         final Button popupButton = popupView.findViewById(R.id.pop_up_validate);
-        final TextView popupText = popupView.findViewById(R.id.pop_up_input);
+        final EditText popupText = popupView.findViewById(R.id.pop_up_input);
+
+        popupText.setFocusable(true);
+        popupText.setFocusableInTouchMode(true);
+        popupText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
 
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         popupView.setOnTouchListener((v, event) -> {
+            imm.hideSoftInputFromWindow(popupText.getWindowToken(), 0);
             popupWindow.dismiss();
             return true;
         });
@@ -189,6 +199,7 @@ public class MapNewTravel extends Fragment implements OnMapReadyCallback, Locati
             lastValidLocation = null;
             travelOn = false;
             mMap.clear();
+            imm.hideSoftInputFromWindow(popupText.getWindowToken(), 0);
             popupWindow.dismiss();
         });
     }
