@@ -2,6 +2,7 @@ package fr.isima.velo.application;
 
 import android.graphics.Color;
 import android.icu.text.DateFormat;
+import android.icu.text.NumberFormat;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,6 +22,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.Iterator;
 
 import fr.velo.lib.Journey;
 import fr.velo.lib.utils.Point4D;
@@ -51,8 +54,25 @@ public class Travel extends AppCompatActivity implements OnMapReadyCallback {
         duration = findViewById(R.id.travel_duration);
 
         title.setText(journey.getName());
-        date.setText(DateFormat.getInstance().format(journey.getDateTime()));
-        duration.setText("durée");
+        date.setText(DateFormat.getInstance().format(journey.getDateTime()));double dt = 0;
+
+        double t = 0;
+        Iterator<Point4D> it = journey.iterator();
+        if (it.hasNext()) {
+            t = it.next().getT();
+        }
+        while (it.hasNext()) {
+            double timePoint = it.next().getT();
+            dt += timePoint - t;
+            t = timePoint;
+        }
+        NumberFormat f = NumberFormat.getInstance();
+        f.setMaximumIntegerDigits(2);
+        f.setMinimumIntegerDigits(2);
+        int sec = (int)dt / 1000;
+        int min = sec / 60;
+        int heu = min / 60;
+        duration.setText("Durée: " + f.format(heu) + ":" + f.format(min % 60) + ":" + f.format(sec % 60));
 
         polylineOptions = new PolylineOptions();
         polylineOptions.color(Color.RED);

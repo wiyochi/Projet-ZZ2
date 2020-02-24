@@ -51,7 +51,7 @@ public class CompactTravelFragment extends Fragment {
 
         name.setText(journey.getName());
         long d = journey.getDateTime();
-        date.setText(DateFormat.getInstance().format(d));
+        date.setText("Date: " + DateFormat.getInstance().format(d));
 
         double dt = 0;
         double t = 0;
