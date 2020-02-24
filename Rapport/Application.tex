@@ -10,14 +10,17 @@
 \usepackage{t1enc}
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 \usepackage{titlesec}
+\usepackage{tikzducks}
 \usepackage{titling}
 \usepackage{graphicx}
+\usepackage{wrapfig}
 \usepackage{csquotes}
 \usepackage[colorlinks = true,
             linkcolor = black,
             urlcolor  = black,
             citecolor = black,
             anchorcolor = black]{hyperref}
+\usepackage[justification=centering]{caption}
 
 \newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}
 
@@ -84,17 +87,31 @@
 \listoffigures
 \newpage
 
-\section{La mission}
-L'objectif de la réalisation du côté client est d'obtenir une application android
-
 \section{Prise en main de l'application}
 \subsection{Organisation de l'application}
+\begin{wrapfigure}[20]{r}[0pt]{0.3\textwidth}
+  \vspace{-50pt}
+  \label{Menu de navigation}
+  \centering
+  \includegraphics[scale=0.13]{images/navigation-menu.png}
+  \caption{Capture d'écran du menu de navigation}
+\end{wrapfigure}
 L'application se rapproche beaucoup d'une application android standard. Elle possède une page d'accueil vide à notre stade de développement mais
 elle est censée contenir à terme les derniers trajets effectués et partagés par nos amis dans l'application.
 
 Un menu de navigation est accessible depuis le bouton en haut à gauche de l'écran ou en faisant glisser le doigt de gauche à droite de l'écran.
 Ce menu permet d'accéder aux différentes fonctionnalités de logiciel. Ce menu devait également afficher notre nom d'utilisateur et
 possiblement un icône pour nous représenter.
+
+Les onglets effectifs sont les onglets "Nouveau Trajet" et "Historique". Les autres n'ont pas pu être développés.
+
+
+% \begin{figure}
+%   \label{Menu de navigation}
+%   \centering
+%   \includegraphics[scale=0.13]{images/navigation-menu.png}
+%   \caption{Capture d'écran du menu de navigation}
+% \end{figure}
 
 \subsection{Onglet "Nouveau Trajet"}
 Cet onglet est la partie principale de l'application. Il contient une carte dynamique (google map) et un bouton. Lorsqu'on clique sur ce
@@ -107,16 +124,73 @@ Une fois le trajet voulu réalisé, on clique sur le bouton en bas de l'écran p
 petite fenêtre en superposition de la carte. Ce "pop-up" contient une zone de texte et un bouton et nous permet de rentrer un nom pour
 le trajet que l'on vient d'effectuer. Une fois ce nom rentré, le trajet s'enregistre sur le téléphone et on peut de nouveau créer un
 autre trajet.
+\begin{figure}[ht]
+  \label{Nouveau trajet}
+  \centering
+  \includegraphics[scale=0.14]{images/nouveau-trajet.png}
+  \caption{Multiples captures d'écrans lors d'un nouveau trajet}
+\end{figure}
 
 \subsection{Onglet "Historique"}
 Cet onglet contient l'ensemble des trajets effectués et enregistrés. Ils s'affichent du plus récent au plus vieux. Chaque trajet est représenté
 par une "card", un conteneur composé du nom du trajet, de sa date de création, de sa durée et d'une capture d'écran de la carte prise au moment
 de sa création. Si il y a trop de trajets et qu'ils ne rentrent pas tous dans l'écran, on peut les faire défiler grâce à une barre de défilement
 en faisant glisser son doigt de bas en haut. Chaque "card" est cliquable et amène vers une page dédié au trajet.
+\begin{figure}[ht]
+  \label{Historique}
+  \centering
+  \includegraphics[scale=0.13]{images/historique.png}
+  \caption{Capture d'écran de l'historique}
+\end{figure}
 
 \subsection{Page "Trajet"}
+\begin{wrapfigure}[5]{r}[0pt]{0.5\textwidth}
+  \label{Trajet}
+  \centering
+  \includegraphics[scale=0.13]{images/travel.png}
+  \caption{Capture d'écran d'une page d'un traje}
+\end{wrapfigure}
 Une page de trajet s'affiche lorsqu'on clique sur l'un dans l'historique. Cette page détaille le trajet avec son nom, sa date de création et
 sa durée mais créer aussi une nouvelle carte (google map) sur laquelle est retracée le chemin effectué lors de la création du trajet.
+
+% \begin{figure}[ht]
+%   \label{Trajet}
+%   \centering
+%   \includegraphics[scale=0.13]{images/travel.png}
+%   \caption{Capture d'écran d'une page d'un trajet}
+% \end{figure}
+
+\newpage
+\section{Analyse du problème}
+\subsection{Le problème}
+La problèmatique de ce projet est comment aider un cycliste à réaliser des trajets qui ne sont pas répertoriés sur des cartes. L'idée est qu'un cycliste, 
+en particulier ceux qui pratiquent le vélo tout terrain, n'a pas à sa disposition des cartes précises des chemins possibles. En effet,
+lorsqu'on s'éloigne des routes pour utiliser des chemins (à travers des forêts par exemple) les cartes papiers ou électroniques ne sont pas
+très exhaustives. La solution serait donc de fournir un outil permettant aux cyclistes de réaliser leur propres trajets dans ces
+chemins et de pouvoir les partager à d'autres cyclistes qui souhaiteraient effectuer ces trajets.
+
+\subsection{Proposition d'une solution}
+L'outil qui permetterait de résoudre ce problème serait donc utilisable par un cycliste afin de sauvegarder son trajet. La solution la plus évidente
+est d'utiliser un smartphone, qui possède un GPS, une interface et une connexion internet. La réponse au problème serait donc une application
+smartphone.
+
+\subsubsection{Fonctionnalités principales}
+\begin{enumerate}
+  \item L'objectif principal est de capturer via un GPS les coordonnées du trajet effectué par l'utilisateur afin de tracer celui-ci sur une carte
+  électronique.
+  \item Il faut également pouvoir sauvegarder ce trajet pour que l'on puisse le consulter ultérieurement et s'en servir pour refaire le trajet.
+  Dans l'idéal cette fonctionnalité ressemblera au fonctionnement d'un GPS classique indiquant à la fois notre position et notre progression dans le tracé.
+  \item Enfin, les trajets pourront être partagés et utilisés par d'autres utilisateurs de l'application.
+\end{enumerate}
+
+\subsubsection{Fonctionnalités bonus}
+\begin{enumerate}
+  \item Les trajets faits ne sont pas forcément ce qu'on aurait voulu tracer et sauvegarder dans l'application. Une solution pourrait être de
+  rendre possible la modification d'un trajet afin de le re-dessiner.
+  \item Pour rendre l'application plus attractive et moins limité aux amateur de cyclisme, elle pourrait adopter le comportement d'un réseau
+  social, avec plus d'interaction entre les utilisateurs (fil d'actualité, messages privés) et plus de sport utilisant ce principe (course à pied, moto).
+\end{enumerate}
+
 
 \section{Organisation}
 \subsection{Arborescence}

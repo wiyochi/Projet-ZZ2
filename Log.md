@@ -62,3 +62,7 @@
 # jour 15 (21/02/20)
 ## Mathieu (1h)
 	Modification du format des temps inscrit dans les points générés par un trajet
+
+# jour 16 (24/02/2020)
+## Mathieu (4h)
+	Premiers textes de rapport (prise en main de l'appli + analyse)
