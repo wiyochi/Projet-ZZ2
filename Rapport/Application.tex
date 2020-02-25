@@ -148,7 +148,7 @@ en faisant glisser son doigt de bas en haut. Chaque "card" est cliquable et amè
   \label{Trajet}
   \centering
   \includegraphics[scale=0.13]{images/travel.png}
-  \caption{Capture d'écran d'une page d'un traje}
+  \caption{Capture d'écran d'une page d'un trajet}
 \end{wrapfigure}
 Une page de trajet s'affiche lorsqu'on clique sur l'un dans l'historique. Cette page détaille le trajet avec son nom, sa date de création et
 sa durée mais créer aussi une nouvelle carte (google map) sur laquelle est retracée le chemin effectué lors de la création du trajet.
@@ -188,12 +188,114 @@ smartphone.
   \item Les trajets faits ne sont pas forcément ce qu'on aurait voulu tracer et sauvegarder dans l'application. Une solution pourrait être de
   rendre possible la modification d'un trajet afin de le re-dessiner.
   \item Pour rendre l'application plus attractive et moins limité aux amateur de cyclisme, elle pourrait adopter le comportement d'un réseau
-  social, avec plus d'interaction entre les utilisateurs (fil d'actualité, messages privés) et plus de sport utilisant ce principe (course à pied, moto).
+  social, avec plus d'interaction entre les utilisateurs (fil d'actualité, messages privés) et plus de sports utilisant ce principe (course à pied, moto).
 \end{enumerate}
 
 
-\section{Organisation}
-\subsection{Arborescence}
+\section{Le développement de l'application}
+\subsection{Les outils}
+Pour développer la partie client de l'application, le choix s'est porté naturellement sur une application android puisque nous possèdons des
+smartphone sous android 9 et android 7. Nous avons donc utilisé android studio, un environnement de développement intégré conçu pour générer
+des applications androids. Ce logiciel utilise le langage XML pour la partie "statique", visuelle, et nous laisse le choix entre le langage
+Kotlin et le langage Java pour la partie execution de code. Au début du projet nous avions la volonté de profiter de ce projet pour apprendre
+le Kotlin, un langage qui semble très intéressant avec son paradigme fonctionnel. Cependant, nous n'avions également que très peu d'expérience
+dans le développement mobile qui est aussi très riche avec beaucoup d'aspects et fonctionnements propres à apprendre. Il s'est très vite révélé
+qu'il était très difficile d'avancer le projet en apprenant en parallèle le développement mobile et le Kotlin. De plus, lorsqu'un problème
+survient, il est beaucoup plus aisé de trouver de la documentation ou de l'aide avec le langage Java puisque le Kotlin est beaucoup plus récent.
+Il a donc été d'un commun accord de reprendre le projet avec le langage Java afin de se concentrer sur l'apprentissage du développement mobile.
+
+\subsection{Les phases de développement}
+\subsubsection{Squelette de l'application}
+Afin de comprendre les mécanismes du développement mobile, la première phase a été de simplement créer une application très basique, contenant
+uniquement les différentes sections qu'on voudrait développer par la suite, sans leur contenu. Il a fallut donc comprendre le système des 
+"activités" et des "fragments" qu'utilise android.
+\begin{itemize}
+  \item Une activité est une composante métier d'une application android et possède une "View" (un partie graphique).
+  \item Un fragment s'apparente grandement à une activité. La différence est qu'un fragment est lié à une partie d'écran et non pas à un écran entier. 
+\end{itemize}
+Ainsi pour créer les différents onglets, on utilise une activité principale qui contient la barre d'outil en haut avec le nom de l'onglet
+dans lequel on se trouve et le bouton permettant d'afficher le menu de navigation. Ce menu est également contenu dans l'activité principale.
+Chaque élément de ce menu change le fragment situé en dessous de la barre d'outil. On a donc un fragment pour chaque onglet. 
+\begin{figure}[ht]
+  \label{Activité-Fragment}
+  \centering
+  \includegraphics[scale=0.13]{images/activity-fragment.png}
+  \caption{Schéma de l'imbrication d'un fragment dans l'activité principale}
+\end{figure}
+
+\subsubsection{Création d'un trajet}
+Une fois plus à l'aise avec android studio, notre objectif premier était de pouvoir créer un simple trajet. Pour ce faire, on a utilisé un
+fragment qu'on affiche lorsqu'on clique sur l'onglet "Nouveau trajet". Dans ce fragment, on a placé deux objets : une carte et un bouton.
+Android studio met à disposition des éléments complexe déjà faits et nous permet de les utiliser à travers de multiples fonctions. C'est le
+cas pour les boutons et la carte électronique qui est une "Google Map". Ces éléments que l'on place statiquement grâce au langage XML sont
+ensuite accessibles dans le code Java avec leur identifiant. On récupère donc les objets créés et on les utilise en récuperant leurs informations
+(par exemple quand le bouton est cliqué) ou en chageant leur apparence (par exemple en changeant le texte du bouton ou en ajoutant un trait
+sur la carte).
+La première étape a donc été de prendre en main les fonctionnalités d'une Google Map. Celles qui nous ont servis pour ce projet sont :
+\begin{itemize}
+  \item Le placement de la caméra (position et zoom)
+  \item Les \emph{Markers}, qui permettent de pointer sur une position précises
+  \item La \emph{Polyline}, un outil qui permet de dessiner sur la carte avec une suite de positions
+\end{itemize}
+Le point suivant a été de comprendre le fonctionnement d'android pour obtenir la localisation géographique du téléphone. Le GPS n'est pas le
+seul moyen d'obtenir une position. En effet il existe trois façons d'obtenir une localisation :
+\begin{enumerate}
+  \item le \emph{GPS\_PROVIDER} (Global Positionning System) utilise les satellites
+  \item le \emph{NETWORK\_PROVIDER} utilise les wifis et le antennes téléphoniques que détecte le télephone
+  \item le \emph{PASSIVE\_PROVIDER} reçoit les positions passivement lorsque d'autres applications en font la demande
+\end{enumerate}
+Le \emph{NETWORK\_PROVIDER} et le \emph{PASSIVE\_PROVIDER} ne donnent qu'une localisation globale, peu précise, en se servant de wifis
+et d'antennes. Dans notre cas, l'utilisateur sera potentiellement éloigné de ce genre d'appareil. De plus, pour tracer un chemin réalisé
+en vélo, il faut priviligier la précision des positions. Ainsi nous avons utilisé essentiellement le \emph{GPS\_PROVIDER}.
+
+Ainsi la création d'un trajet se fait de la manière suivante :
+\begin{enumerate}
+  \item On clique sur l'onglet "Nouveau trajet" qui fait apparaître le fragment contenant une carte Google et un bouton "Nouveau trajet".
+  Si l'application est lancée pour la première fois, une fenêtre contextuelle nous indique qu'il faut autoriser l'application à utiliser le GPS.
+  Cette fenêtre permet d'ouvrir les paramètres du smartphone.
+  \item On clique sur le bouton "Nouveau trajet". A ce moment l'application prends la localisation acutelle comme point de départ et fait
+  apparaître un point sur la carte à cet endroit. De plus la carte zoom et ce centre autour de ce point jusqu'à ce qu'il soit au centre
+  avec une vision d'une centaine de mètres de rayon autour. Le texte du bouton change et devient "Arrêter le trajet".
+  \item On se déplace. Lorsque le GPS détecte un changement de position, l'application créer un nouveau point dans le trajet. Le \emph{Marker}
+  se déplace sur cette nouvelle position et un trait se dessine entre le précédent point et le nouveau.
+  \item On clique sur le bouton "Arrêter le trajet". Un fenêtre contextuelle permettant de rentrer le nom du trajet apparaît.
+  \item On rentre le nom du trajet dans la zone de texte.
+  \item On clique sur le bouton "Valider". Le trajet est créé et on peut recommencer.
+\end{enumerate}
+
+\subsubsection{Sauvegarde des trajets}
+Au début du projet, les trajets effectués par l'utilisateur étaient destinés à être enregistrés dans une base de donnée. Ainsi, les utilisateurs
+pouvaient utiliser plusieurs appareils sans perdre leurs trajets et cela aurait permis plus tard le partage de ceux-ci. Cependant, après avoir
+rencontrés certains problèmes pour relier l'application smartphone au serveur, il a été décidé de sauvegarder les trajets dans des fichiers,
+au moins temporairement.
+
+Por simplifier la communication potentielle avec le serveur, une librairie Java a été réalisé pour représenter un trajet. Cette librairie
+contient deux objets essentiels \emph{Journey} et \emph{JourneyHistory}. L'un représentant un trajet et l'autre un ensemble de trajet
+(utilisé plus tard pour l'historique). L'objet trajet n'est qu'une abstraction d'un tableau de localisations. Ces localisations possèdent
+quatres composantes :
+\begin{itemize}
+  \item la latitude de la position
+  \item la longitude de la position
+  \item l'altitude de la position (pour le dénivelé du trajet)
+  \item la date à laquelle le point a été pris
+\end{itemize}
+Ainsi à chaque nouveau point lors d'un trajet, c'est dans cet objet qu'on le stocke. Puis lorsque l'utilisateur finit son trajet,
+on l'ajoute à l'objet \emph{JourneyHistory} et on écris dans un fichier le contenu de l'objet (son nom, sa date de création et chaque
+point qu'il contient).
+
+\subsubsection{Historique}
+L'objet \emph{JourneyHistory} contient en mémoire tous les trajets effectués par l'utilisateur tant que l'application est en fonctionnement.
+Ainsi, lorsque l'application se démarre, on charge dans cet objet tous les trajets sauvegardés dans des fichiers. De cette manière, on peut
+afficher le contenu de l'onglet "Historique" sans lire des fichiers à chaque fois.
+
+L'affichage de cet onglet se fait via des "MaterialCards". Google met à disposition un certain nombre de composants préfaits. Ceux-ci sont
+plus "design" et permettent de garder un visuel cohérent simplement. Ici nous avons utilisé les "Cards" qui sont des conteneurs pour d'autres
+objets comme des images ou du texte.
+
+Dans l'historique, chaque "Card" représente un trajet. Une "Card" est composée d'une capture d'écran de la carte prise à la fin du trajet,
+du nom du trajet, de sa date de création et de sa durée. Ainsi, lorsqu'on affiche le fragment "Historique", on créer une "Card" pour
+chaque trajet dans le \emph{JourneyHistory}. Ceux-ci sont triés par date de création, on les affiche donc du plus récent au plus vieux.
+
 
 \newpage
 \appendix
