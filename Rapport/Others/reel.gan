@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2019-11-10" view-index="0" gantt-divider-location="349" resource-divider-location="300" version="2.8.10" locale="fr">
+    <description/>
+    <view zooming-state="default:6" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="198" order="0"/>
+        <field id="tpd4" name="Date de début" width="74" order="1"/>
+        <field id="tpd5" name="Date de fin" width="74" order="2"/>
+        <option id="taskLabelUp" value="name"/>
+        <option id="color.recent">
+            <![CDATA[#0099ff #9900ff #00ff00 #ffff33 #ffcc00 #ff6666 #66ccff #009999 #3366ff #ff66cc]]>
+        </option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="211" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars base-id="Aucun">
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="Découverte et Conception" color="#0099ff" meeting="false" start="2019-11-12" duration="7" complete="0" thirdDate="2019-11-04" thirdDate-constraint="0" expand="true">
+            <depend id="3" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="3" name="Création BDD" color="#0099ff" meeting="false" start="2019-11-25" duration="3" complete="0" thirdDate="2019-11-25" thirdDate-constraint="1" expand="true">
+            <depend id="5" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="5" name="Création Serveur" color="#0099ff" meeting="false" start="2019-12-18" duration="3" complete="0" thirdDate="2019-12-18" thirdDate-constraint="1" expand="true">
+            <depend id="8" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="8" name="Vacances et Problème VM" color="#0099ff" meeting="false" start="2019-12-23" duration="15" complete="0" thirdDate="2019-12-23" thirdDate-constraint="1" expand="true"/>
+        <task id="17" name="Protocole de communication" color="#0099ff" meeting="false" start="2020-01-13" duration="5" complete="0" thirdDate="2020-01-13" thirdDate-constraint="1" expand="true">
+            <depend id="20" type="2" difference="0" hardness="Strong"/>
+            <depend id="23" type="2" difference="0" hardness="Strong"/>
+            <depend id="25" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="20" name="Problème VPN" color="#0099ff" meeting="false" start="2020-01-20" duration="22" complete="0" thirdDate="2020-01-13" thirdDate-constraint="1" expand="true"/>
+        <task id="23" name="Librairie" color="#0099ff" meeting="false" start="2020-01-29" duration="13" complete="0" thirdDate="2020-01-29" thirdDate-constraint="1" expand="true"/>
+        <task id="25" name="Rapport" color="#0099ff" meeting="false" start="2020-01-23" duration="25" complete="0" thirdDate="2020-01-23" thirdDate-constraint="1" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
