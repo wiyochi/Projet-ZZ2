@@ -1,0 +1,78 @@
+\section{Prise en main de l'application}
+\subsection{Organisation de l'application}
+\begin{wrapfigure}[16]{r}[0pt]{0.3\textwidth}
+  \vspace{-50pt}
+  \label{Menu de navigation}
+  \centering
+  \includegraphics[scale=0.13]{images/navigation-menu.png}
+  \caption{Capture d'écran du menu de navigation}
+\end{wrapfigure}
+L'application se rapproche beaucoup d'une application android standard. Elle possède une page d'accueil vide à notre stade de développement mais
+elle est censée contenir à terme les derniers trajets effectués et partagés par nos amis dans l'application.
+
+Un menu de navigation est accessible depuis le bouton en haut à gauche de l'écran ou en faisant glisser le doigt de gauche à droite de l'écran.
+Ce menu permet d'accéder aux différentes fonctionnalités de logiciel. Ce menu devait également afficher notre nom d'utilisateur et
+possiblement un icône pour nous représenter.
+
+Les onglets effectifs sont les onglets "Nouveau Trajet" et "Historique". Les autres n'ont pas pu être développés.
+
+\subsection{Onglet "Nouveau Trajet"}
+Cet onglet est la partie principale de l'application. Il contient une carte dynamique (google map) et un bouton. Lorsqu'on clique sur ce
+bouton, on lance alors la création d'un nouveau trajet. Cela se remarque grâce au bouton qui a changé de texte et de fonction, il permet
+alors d'indiquer la fin du trajet, et de la carte qui affiche maintenant un point nous représentant sur la carte. Dès lors, lorsqu'on bouge
+le gps le détecte et transmet un nouveau point à la carte. Notre position change donc et la suite de ces points affiche un chemin visible
+sur la carte.
+
+Une fois le trajet voulu réalisé, on clique sur le bouton en bas de l'écran pour le terminer. Ceci a pour effet de faire apparaître une
+petite fenêtre en superposition de la carte. Ce "pop-up" contient une zone de texte et un bouton et nous permet de rentrer un nom pour
+le trajet que l'on vient d'effectuer. Une fois ce nom rentré, le trajet s'enregistre sur le téléphone et on peut de nouveau créer un
+autre trajet.
+\begin{figure}[ht]
+  \label{Nouveau trajet}
+  \centering
+  \includegraphics[scale=0.11]{images/nouveau-trajet.png}
+  \caption{Multiples captures d'écrans lors d'un nouveau trajet}
+\end{figure}
+
+\subsection{Onglet "Historique"}
+Cet onglet contient l'ensemble des trajets effectués et enregistrés. Ils s'affichent du plus récent au plus vieux. Chaque trajet est représenté
+par une "card", un conteneur composé du nom du trajet, de sa date de création, de sa durée et d'une capture d'écran de la carte prise au moment
+de sa création. Si il y a trop de trajets et qu'ils ne rentrent pas tous dans l'écran, on peut les faire défiler grâce à une barre de défilement
+en faisant glisser son doigt de bas en haut. Chaque "card" est cliquable et amène vers une page dédié au trajet.
+\begin{figure}[ht]
+  \label{Historique}
+  \centering
+  \includegraphics[scale=0.13]{images/historique.png}
+  \caption{Capture d'écran de l'historique}
+\end{figure}
+
+\subsection{Page "Trajet"}
+\begin{wrapfigure}[5]{r}[0pt]{0.5\textwidth}
+  \vspace{-50pt}
+  \label{Trajet}
+  \centering
+  \includegraphics[scale=0.13]{images/travel.png}
+  \caption{Capture d'écran d'une page d'un trajet}
+\end{wrapfigure}
+Une page de trajet s'affiche lorsqu'on clique sur l'un dans l'historique. Cette page détaille le trajet avec son nom, sa date de création et
+sa durée mais créer aussi une nouvelle carte (google map) sur laquelle est retracée le chemin effectué lors de la création du trajet.
+
+\newpage
+\section{Possibilités d'évolutions}
+En raison de multiples facteurs, l'application que nous avons imaginé à l'origine est très différente de celle que nous présentons aujourd'hui.
+En effet nous n'avons ici que la base, qui consiste à tracer des trajets grâce à une carte électronique et à consulter ces trajets. Nous pouvons
+donc dire que l'évolution possible de l'application serait déjà d'obtenir les fonctionnalités prévues. Premièrement la connexion au serveur
+afin que les données de l'utilisateur soient placées dans la base de données. Ensuite l'ajout d'une fonction suivi de trajet, où l'utilisateur
+pourrait se servir d'un trajet créé auparavant comme d'un GPS classique, avec sa position en évolution par rapport au tracé. Enfin, le fait
+de pouvoir partager les trajets entre utilisateurs.
+
+L'application a un fort potentiel communautaire. Le fait de créer des trajets peut servir à soi-même mais il est d'autant plus intéressant
+de pouvoir rendre public ses chemins afin de par exemple faire découvrir des régions ou aider les cyclistes débutants. Ainsi des utilisateurs
+de partout pourraient agrémenter une base de données de trajets publics. Lorsqu'un utilisateur souhaite faire du vélo, il pourrait accéder
+à cette base de données en triant les trajets par endroit géographique, par difficulté ou par durée.
+
+Une fonctionnalité intéressante à ajouter serait un ensemble de statistiques, à la fois par trajet et par utilisateur. En effet les smartphones
+sont équipés aujourd'hui de nombreux capteurs, en plus du GPS. Cela permetterait à l'application de connaître l'accélération, la vitesse, le
+dénivelé, la météo à chaque portion du trajet. L'application pourrait en faire des graphiques, en calculer les efforts fournis sur chaque trajet.
+On pourrait même imaginer d'aller plus loin sur cet aspect et lier l'application à des dispositifs extérieurs qui pourrait se placer sur le
+vélo ou sur l'utilisateur pour obtenir la puissance utilisée sur les pédales ou le rythme cardiaque.
