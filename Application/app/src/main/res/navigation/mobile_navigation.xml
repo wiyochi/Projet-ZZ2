@@ -5,7 +5,7 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home">
 
-    <activity
+    <fragment
         android:id="@+id/nav_new_travel"
         android:name="fr.isima.velo.application.ui.newTravel.NewTravel"
         android:label="@string/menu_new_travel"
@@ -18,32 +18,26 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/nav_history"
+        android:name="fr.isima.velo.application.ui.history.HistoryFragment"
+        android:label="@string/menu_history"
+        tools:layout="@layout/fragment_history" />
+
+    <fragment
         android:id="@+id/nav_gallery"
         android:name="fr.isima.velo.application.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="Statistiques"
         tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="fr.isima.velo.application.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
-        android:id="@+id/nav_tools"
-        android:name="fr.isima.velo.application.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/nav_share"
         android:name="fr.isima.velo.application.ui.share.ShareFragment"
-        android:label="@string/menu_share"
+        android:label="Partager"
         tools:layout="@layout/fragment_share" />
 
     <fragment
         android:id="@+id/nav_send"
         android:name="fr.isima.velo.application.ui.send.SendFragment"
-        android:label="@string/menu_send"
+        android:label="Envoyer"
         tools:layout="@layout/fragment_send" />
 </navigation>

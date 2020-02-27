@@ -1,49 +1,78 @@
 package fr.isima.velo.application.ui.newTravel;
 
-import androidx.fragment.app.FragmentActivity;
+import androidx.annotation.NonNull;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import android.os.Environment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Objects;
 
 import fr.isima.velo.application.R;
 
-public class NewTravel extends FragmentActivity implements OnMapReadyCallback {
+public class NewTravel extends Fragment {
 
-    private GoogleMap mMap;
+    private MapNewTravel map;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    private Button newTravelButton;
+    private View view;
+
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_new_travel);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        View root = inflater.inflate(R.layout.fragment_new_travel, container, false);
+        view = root;
+
+        newTravelButton = root.findViewById(R.id.button_new_travel);
+
+        map = new MapNewTravel();
+
+        FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.add(R.id.container, map, "one");
+        fragmentTransaction.commit();
+
+        configureButton();
+
+        return root;
     }
 
+    private void configureButton() {
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        newTravelButton.setOnClickListener(v -> {
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            if (!map.isTravelOn()) {
+                Log.d("BUTTON", "Start Travel");
+
+                map.startTravel();
+
+                newTravelButton.setText("Arrêter le trajet");
+            } else {
+                Log.d("BUTTON", "End Travel");
+
+                map.endTravel(view);
+
+                newTravelButton.setText("Nouveau trajet");
+
+            }
+        });
     }
 }

@@ -34,6 +34,52 @@
 ## Mathieu (2h)
 	Test de création du menu de navigation, utilisation de androidx alors que la version d'android utilisée est 7. Du coup tout doit être refait pour ne pas utiliser androidx
 
+# jour 7 (21/01/20)
+## Mathieu (4h)
+	Ajout de la google map, du layout et du bouton dans l'activité newTravel. Ajout des affichages des chemins sur la map (à tester).
+
+# jour 8 (25/01/20)
+## Mathieu (3h)
+	Modification de la structure des éléments dans newTravel -> utilisation de 2 fragments dont 1 spécial pour la carte du trajet
+	+ 1er test sur une 15aine de kilomètres (cf capture écran) -> problème du GPS qui détecte des points loins sans raison
+
+# jour 9 (30/01/20)
+## Mathieu (2h)
+	Ajout du "lissage" des points fantômes en utilisant la vitesse
+	+ tests sur une vm d'android studio pour faire des tests de GPS sans devoir bouger
+
+# jour 10 (04/02/20)
+## Mathieu (2h)
+	Mise en place de la lib de Jérémy dans l'application
+	Fix du bug du premier point
+
+# jour 11 (06/02/20)
+## Mathieu (4h)
+	Choix du nom du trajet fini avec un pop up  et ajout dans l'historique
+	affichage basique de l'historique
+
+# jour 12 (07/02/20)
+## Mathieu (2h)
+	modification historique pour affichre les 10 derniers trajets
+	Tests pour la sérialisation et l'enregistrement dans des fichiers des trajets
+
+# jour 13 (13/02/20)
+## Mathieu (3h)
+	Ajout des cards pour afficher les compactedTravel
+	Prise de screen lors de la création d'un travel et affichage dans les cards
+
+# jour 14 (17/02/20)
+## Mathieu (3h)
+	Ajout de l'activity lorsqu'on clique sur une card
+
+# jour 15 (21/02/20)
+## Mathieu (1h)
+	Modification du format des temps inscrit dans les points générés par un trajet
+
+# jour 16 (24/02/2020)
+## Mathieu (4h)
+	Premiers textes de rapport (prise en main de l'appli + analyse)
+
 # Jour 7 (18/12/19):
 ## Mathieu (2h)
  	Rebasement du projet à partir d'un exemple Android Studio pour le navigation drawer (+ compréhension de l'exemple)
