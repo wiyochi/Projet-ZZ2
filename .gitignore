@@ -64,3 +64,12 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 /.metadata/
+
+# Latex
+*.aux
+*.fdb_latexmk
+*.fls
+*.lof
+*.out
+*.synctex.gz
+*.toc
