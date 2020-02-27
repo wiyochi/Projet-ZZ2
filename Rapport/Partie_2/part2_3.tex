@@ -4,12 +4,12 @@
 \subsection{Organisation théorique du travail}
 \subsubsection{Répartition des tâches et prévision de l'emploi du temps}
 Le projet fut dès le départ pensé dans le but d'être simple à séparer sous formes de modules, permettant de travailler en parallèle sur plusieurs fonctionnalités.
-De plus nous comme nous avions nous même proposé le sujet, il fut assez difficile de prévoir une charge de travail associée à chaque module. Nous avons donc estimé 
-de manière très grossière le temps de travail par module. Pour être sûr de pouvoir ajuster le déroulement du projet, nous avons prévus des modules de durées différentes permettant ainsi
+Comme nous avions nous-mêmes proposé le sujet, il fut assez difficile de prévoir une charge de travail associée à chaque module. Nous avons donc estimé 
+de manière très grossière le temps de travail par module. Pour être sûr de pouvoir ajuster le déroulement du projet, nous avons prévu des modules de durées différentes permettant ainsi
 de choisir un module en fonction du temps restant, c'est pour cette raison que la durée estimée est supérieure au 60H par personne que nous sommes censés faire.
 \par
 Nous avions prévu, lors de notre premier rendez-vous avec notre tuteur, de travailler 4H par semaine de cours et de ne pas travailler les semaines de vacances.
-Nous avons sommes donc parvenu à finaliser l'emploi du temps suivant, qui n'avait pas pour but d'être suivis à la lettre.
+Nous avons sommes donc parvenu à finaliser l'emploi du temps suivant, qui n'avait pas pour but d'être suivi à la lettre.
 \vfill
 \begin{figure}[!h]
     \begin{center}
@@ -21,7 +21,7 @@ Nous avons sommes donc parvenu à finaliser l'emploi du temps suivant, qui n'ava
 Les deux premiers objectifs fixés étaient assez simples, leur but étaient de nous laisser le temps d'être à l'aise avec les technologies choisies.
 Nous devions prévoir la base de données, c'est à dire la concevoir et la mettre en place sur la machine virtuelle. En parallèle de celà, nous devions réussir à récupérer les coordonnées GPS du téléphone, et réussir à les afficher.
 \par
-Les objectifs suivant étaient d'enrichir l'expérience utilisateur en améliorant l'interface. Nous voulions en premier permettre la gestion d'un compte utilisateur depuis l'application, ce qui implique un écran de connexion, un écran de création de compte ainsi qu'un écran de gestion de compte.
+Les objectifs suivants étaient d'enrichir l'expérience utilisateur en améliorant l'interface. Nous voulions en premier permettre la gestion d'un compte utilisateur depuis l'application, ce qui implique un écran de connexion, un écran de création de comptes ainsi qu'un écran de gestion de comptes.
 Dans un second point (développé en parallèle) nous devions enrichir l'interface fonctionnelle de l'application, c'est à dire insérer une interface contenant une carte sur laquelle notre trajet serait affichable (celà sous entend de stocker les coordonnées aquises).
 \par
 Nous avions prévus de faire évoluer l'application en rajoutant du contenu. Il aurait fallu ajouter des statistiques plus complètes sur les trajets effectués, comme par exemple$\ :$ le dénivelé, la météo ou bien une estimation des calories dépensées.
@@ -90,4 +90,19 @@ Pour ce qui est de la communication avec notre tuteur, nous devions envoyé des 
 
 
 \subsection{Problèmes rencontrés}
-
+\subsubsection{Langage Kotlin}
+Lors de ce projet nous avons rencontrés plusieurs problèmes majeurs qui nous ont obligés à changer l'orientation du projet.
+Le premier problème était lié au langage, nous avions prévu de développer l'application en utilisant le langage Kotlin, qui est le nouveau langage officiel.
+Cependant nous nous sommes rendus compte, qu'apprendre un nouveau langage en même temps que d'apprendre le fonctionnement d'android n'était pas faisable.
+De plus la documentation du SDK n'est pas aussi complète en Kotlin qu'en Java, idem pour les forums où l'on trouve beaucoup moins de ressources sur Kotlin que sur Java.
+Nous avons donc décidé, après réunion avec notre tuteur, de passer sur du Java pour pouvoir avancer plus efficacement sur l'application.
+\subsubsection{Machine virtuelle}
+Nous avons ensuite eu des problèmes liés au materiel qui sont indépendants de notre volonté.
+Tout d'abord, pendant les vacances de noël, nous n'avons pas pu avancer autant que nécessaire, car la machine virtuelle que nous avez fournies l'ISIMA ne fonctionnait pas.
+Nous avons donc passé plusieurs jours à essayer de trouver où était notre erreur de configuration, avant de se rendre compte qu'elle avait juste était éteinte et pas rallumer lors d'une maintenance.
+\subsubsection{Réseau}
+Enfin le problème qui nous a le plus bloqué est survenu lorsque nous avons voulu connecté l'application au serveur. En effet, pour accéder à la machine virtuelle il faut obligatoirement être connecté au réseau privé de l'ISIMA.
+Pour celà l'ISIMA fournit un fichier de configuration pour le logiciel OpenVPN. Cette configuration fonctionne parfaitement sur ordinateur. Cependant lorsque nous l'avons mis sur nos téléphones, nous perdions tout accès à internet.
+Nous avons ensuite contacté le service informatique de l'école, qui a accepté de prendre un rendez-vous pour essayer de diagnostiquer plus précisémment le problème. Nous avons lors de ce rendez-vous, réussi à confirmer que le problème venait
+du fichier de configuration qui utilisait un paramètre de compression des données non-compatible avec la version android du logiciel. Nous avons ensuite essayer de trouver des solutions pour pouvoir continuer le projet.
+Une fois les délibération terminée, il fut conclu que nous n'aurions pas de solution dans les délais qui nous étaient imposés. Nous avons donc arrêter le développement de la partie réseau et serveur pour nous concenter sur un stockage local des informations.
