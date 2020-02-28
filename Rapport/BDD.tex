@@ -10,7 +10,20 @@
 \usepackage{listings}
 \usepackage{indentfirst}
 \usepackage{wrapfig}
+\usepackage{titlesec}
+\usepackage{tikzducks}
+\usepackage{titling}
+\usepackage{graphicx}
+\usepackage{csquotes}
+\usepackage{t1enc}
+\usepackage[colorlinks = true,
+            linkcolor = black,
+            urlcolor  = black,
+            citecolor = black,
+            anchorcolor = black]{hyperref}
 \graphicspath{{Schemas/}}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}
 
 \definecolor{light-gray}{gray}{0.95} %the shade of grey that stack exchange uses
 \lstset{
@@ -74,8 +87,15 @@
 \section*{Table des matières}
 \section*{Introduction}
 
+\newpage
+\input{lexique.tex}
+\input{introduction.tex}
+
 \input{Partie_1/part1.tex}
 \input{Partie_2/part2.tex}
 \input{Partie_3/part3.tex}
+
+\newpage
+\input{webographie.tex}
 \end{document}
 
