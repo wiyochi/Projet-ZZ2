@@ -22,8 +22,8 @@ sudo yum install nmap
 \end{lstlisting}
 
 \subsubsection{Base de données}
-Nous avons tout d'abord dû choisir quelle technologie nous allions utilisé pour notre base de données.
-Nous connaissions un nombre suffisant pour ne pas chercher autre chose et juste faire un choix.
+Nous avons tout d'abord dû choisir quelle technologie nous allions utiliser pour notre base de données.
+Nous en connaissions un nombre suffisant pour ne pas en chercher d'autres. Notre choix s'est finalement porté sur MySQL car il répondait à nos besoins, et sa mise en place était plus accessible.
 \par
 \begin{center}
     Technologies que nous connaissions
@@ -50,7 +50,7 @@ sudo mysqladmin variables -u root -p
 \end{lstlisting}
 On peut ensuite modifier le contenu du SGBD en utilisant l'interpréteur de commandes mysql :
 \begin{lstlisting}[language=bash]
-mysql -u root -p
+MySQL -u root -p
 \end{lstlisting}
 Il faut enfin créer et sélectionner la base de données que l'on veut utiliser :
 \begin{lstlisting}[language=bash]
@@ -62,7 +62,7 @@ USE DATABASE <nom de la base de données>
 \subsubsection{Le serveur Java}
 
 Pour l'exécution du serveur java, on utilisera Screen.
-Screen est un logiciel qui permet de créer des terminaux (appelés \emph{sessions}), de s'y déco-\\nnecter puis reconnecter autant que désiré.
+Screen est un logiciel qui permet de créer des terminaux (appelés \emph{sessions}), de s'y déconnecter puis reconnecter autant que désiré.
 Ces terminaux continueront leur exécution en arrière plan. On peut donc utiliser l'entrée et la sortie standard pour communiquer avec le programme.
 Pour se connecter à une session ou la créer si elle n'existe pas, on utilise l'option -R.
 \begin{lstlisting}[language=bash]
@@ -73,12 +73,12 @@ Pour se connecter à une session ou la créer si elle n'existe pas, on utilise l
 Pour développer la partie client de l'application, le choix s'est porté naturellement sur une application android puisque nous possèdons des
 smartphones sous android 9 et android 7. Nous avons donc utilisé android studio, un environnement de développement intégré conçu pour générer
 des applications androids. Ce logiciel utilise le langage XML pour la partie "statique", visuelle, et nous laisse le choix entre le langage
-Kotlin et le langage Java pour la partie execution de code. Au début du projet nous avions la volonté de profiter de ce projet pour apprendre
+Kotlin et le langage Java pour la partie exécution de code. Au départ, nous avions la volonté de profiter de ce projet pour apprendre
 le Kotlin, un langage qui semble très intéressant avec son paradigme fonctionnel. Cependant, nous n'avions également que très peu d'expérience
 dans le développement mobile qui est aussi très riche avec beaucoup d'aspects et fonctionnements propres à apprendre. Il s'est très vite révélé
 qu'il était très difficile d'avancer le projet en apprenant en parallèle le développement mobile et le Kotlin. De plus, lorsqu'un problème
 survient, il est beaucoup plus aisé de trouver de la documentation ou de l'aide avec le langage Java puisque le Kotlin est beaucoup plus récent.
-Il a donc été d'un commun accord de reprendre le projet avec le langage Java afin de se concentrer sur l'apprentissage du développement mobile.
+Il a donc été convenu de reprendre le projet avec le langage Java afin de se concentrer sur l'apprentissage du développement mobile.
 
 \subsection{Base de données}
 Le développement de la base de données s'est fait rapidement. Nous avons décidé de 
@@ -91,24 +91,24 @@ Le développement de la base de données s'est fait rapidement. Nous avons déci
 
 \subsection{Le serveur}
 \subsubsection{Processus}
-Le serveur utilise une architecture avec plusieurs processus. Le processus principal attend une connection provenant d'un client (application).
+Le serveur utilise une architecture avec plusieurs processus. Le processus principal attend une connexion provenant d'un client (application).
 A chaque connexion un nouveau processus est créé pour intéragir avec le client. Ce processus attend donc un message du client, exécute la commande
-SQL nécessaire pour obtenir une réponse et enfin, il répond au client en formattant les données. Un processus supplémentaire existe pour pouvoir
+SQL nécessaire pour obtenir une réponse et répond au client en formatant les données. Un processus supplémentaire existe pour pouvoir
 travailler directement avec le serveur, sans passer par un client. Pour cela, l'entrée et la sortie standard sont utilisées et il faut donc un accès direct à la machine.
 \subsubsection{Classes}
 Le processus principal n'utilise qu'une seule classe \emph{Serveur}, tout comme le processus de communication direct \emph{LocalCommand}.
 Cependant le processus de communication avec le client est séparé en plusieurs objets : \emph{Client}, \emph{SQLHandler} et \emph{CommunicationHandler}. 
-Le premier est le processus en lui même et utilise les deux autres pour effectuer les tâches qui lui sont assignées. L'objet \emph{SQLHandler} accède à la base de données et formatte les réponses.
-Enfin le \emph{CommunicationHandler} gère la communication réseau avec le client, il permet la réception et l'envoie de chaîne de caractères.
-Enfin deux classes sont utilisées pour facilité le travail de conversion des formats pour les points : \emph{Point3D} et \emph{Point4D} qui correspondent respectivement à une coordonnée dans l'espace : (x, y, z)
+Le premier est le processus en lui même et utilise les deux autres pour effectuer les tâches qui lui sont assignées. L'objet \emph{SQLHandler} accède à la base de données et formate les réponses.
+Enfin le \emph{CommunicationHandler} gère la communication réseau avec le client, il permet la réception et l'envoi de chaîne de caractères.
+Enfin deux classes sont utilisées pour faciliter le travail de conversion des formats pour les points : \emph{Point3D} et \emph{Point4D} qui correspondent respectivement à une coordonnée dans l'espace : (x, y, z)
 et à une coordonnée dans l'espace et le temps : (x, y, z, t).
 \subsubsection{Echange type}
 TODO : Diagramme de séquence
 
 \subsubsection{Implémentation}
 La création du serveur devait à l'origine être rapide car on le considérait comme étant annexe. C'est pourquoi on a choisi l'utilisation d'une
-technologie que nous connaissions déjà : \emph{Java}. Ce langage contient dans sa librairie standard tout ce qu'il faut pour développer un serveur.
-De plus il existe une librairie java développée par Oracle pour la communication avec les bases de données MySQL.
+technologie que nous connaissions déjà : \emph{Java}. Ce langage contient dans sa bibliothèque standard tout ce qu'il faut pour développer un serveur.
+De plus il existe une bibliothèque Java développée par Oracle pour la communication avec les bases de données MySQL.
 
 Le \emph{Java} est un langage compilé particulier. Le code est tout d'abord compilé dans un langage intermédiaire appelé \emph{Bytecode}. 
 Puis, il est exécuté dans une machine virtuelle appelée la \emph {Java Virtual Machine} en utilisant une nouvelle étape de compilation \emph {Just In Time}.
@@ -119,14 +119,14 @@ Puis, il est exécuté dans une machine virtuelle appelée la \emph {Java Virtua
     \includegraphics[scale=0.5]{images/java_compilation.png}
     \caption{Schéma représentant la compilation en Java}
 \end{figure}
-Les programmes développés et compilés en Java peuvent être exécuté sur toutes les machines possédant la JVM installée sans avoir aucun changement de code source ou bien de paramêtre de compilation.
+Les programmes développés et compilés en Java peuvent être exécutés sur toutes les machines possédant la JVM installée sans avoir aucun changement de code source ou bien de paramètre de compilation.
 \subsubsection{Fonctionnement des processus}
-L'organisation des processus en java est particulière. En effet, il n'y a qu'un seul processus lourd (à la différence des forks du langage C).
-Ce processus lourd unique est la JVM. Tous les autres processus, y compris le processus principal de notre programme ne sont que des processus légers.
-Il y a donc un partage des resources, et l'échange de données est plus simple. Il faut attention faire cependant aux accès simultanés aux ressources.
+L'organisation des processus en java est particulière. En effet, il n'y a qu'un seul processus lourd (à la différence des \emph{forks} du langage C).
+Ce processus lourd unique est la JVM. Tous les autres processus, y compris le processus principal de notre programme, ne sont que des processus légers.
+Il y a donc un partage des ressources, et l'échange de données est plus simple. Cependant, il faut faire attention aux accès simultanés aux ressources.
 \subsubsection{Création de processus}
 Le processus principal de notre programme est créé automatiquement par la JVM et il exécute le code de la fonction \emph{public static void main(String[] args)} qui est le point d'entrée de notre programme.
-Pour construire d'autres processus il y a plusieurs manières. On va ici se concentrer sur la classe \emph{Thread} et l'interface \emph{Runnable}.
+Pour construire d'autres processus, il y a plusieurs manières. On va ici se concentrer sur la classe \emph{Thread} et l'interface \emph{Runnable}.
 \subsubsection{Utilisation de \emph{Thread}}
 Un \emph{Thread} est un objet qui exécute du code dans un autre processus. Pour cela, il suffit de créer un Thread et de le lancer en utilisant la méthode \emph{start()}.
 \begin{lstlisting}[language=Java]
@@ -145,13 +145,9 @@ Thread monThread = new Thread() {
 monThread.start();
 \end{lstlisting}
 
-\subsubsection{Patron de conception}
-TODO : Fabric/Builder sur le serveur pour les clients\\
-TODO : Singleton Serveur + (LocalCommand ???)
-
 \subsubsection{Communication réseau}
-En Java, on utilise les objets de type \emph{Socket} pour faire de la communication en réseau. C'est objets utilisent le protocole TCP pour communiquer et permettent donc de s'assurer de l'état de la connection.
-Un premier socket (\emph{ServerSocket}) permet d'attendre qu'un client se connecte et de créer un \emph{Socket} pour communiquer avec lui.
+En Java, on utilise les objets de type \emph{Socket} pour faire de la communication en réseau. Ces objets utilisent le protocole TCP pour communiquer et permettent donc de s'assurer de l'état de la connexion.
+Un premier \emph{socket} (\emph{ServerSocket}) permet d'attendre qu'un client se connecte et de créer un \emph{Socket} pour communiquer avec lui.
 \begin{lstlisting}[language=Java]
 ServerSocket socket = new ServerSocket(PORT);
 while (true) {
@@ -207,7 +203,7 @@ PrintWriter writer = new PrintWriter(output);
             \hline
             Unsubscribed & Erreur lors de l'inscripton \\
             \hline
-            Connected:$<id>$ & Valide la connection à son compte\\
+            Connected:$<id>$ & Valide la connexion à son compte\\
             \hline
             Unconnected & Erreur lors de la connection \\
             \hline
@@ -223,15 +219,15 @@ PrintWriter writer = new PrintWriter(output);
 \subsection{Développement de l'application android}
 \subsubsection{Squelette de l'application}
 Afin de comprendre les mécanismes du développement mobile, la première phase a été de simplement créer une application très basique, contenant
-uniquement les différentes sections qu'on voudrait développer par la suite, sans leur contenu. Il a fallut donc comprendre le système des 
+uniquement les différentes sections qu'on voudrait développer par la suite, sans leur contenu. Il a donc fallu comprendre le système des 
 "activités" et des "fragments" qu'utilise android.
 \begin{itemize}
   \item Une activité est une composante métier d'une application android et possède une "View" (un partie graphique).
   \item Un fragment s'apparente grandement à une activité. La différence est qu'un fragment est lié à une partie d'écran et non pas à un écran entier. 
 \end{itemize}
-Ainsi pour créer les différents onglets, on utilise une activité principale qui contient la barre d'outil en haut avec le nom de l'onglet
+Ainsi pour créer les différents onglets, on utilise une activité principale qui contient la barre d'outils  en haut avec le nom de l'onglet
 dans lequel on se trouve et le bouton permettant d'afficher le menu de navigation. Ce menu est également contenu dans l'activité principale.
-Chaque élément de ce menu change le fragment situé en dessous de la barre d'outil. On a donc un fragment pour chaque onglet. 
+Chaque élément de ce menu change le fragment situé en dessous de la barre d'outils. On a donc un fragment pour chaque onglet. 
 \begin{figure}[ht]
   \label{Activité-Fragment}
   \centering
@@ -240,14 +236,14 @@ Chaque élément de ce menu change le fragment situé en dessous de la barre d'o
 \end{figure}
 
 \subsubsection{Création d'un trajet}
-Une fois plus à l'aise avec android studio, notre objectif premier était de pouvoir créer un simple trajet. Pour ce faire, on a utilisé un
+Une fois plus à l'aise avec Android Studio, notre objectif premier était de pouvoir créer un simple trajet. Pour ce faire, on a utilisé un
 fragment qu'on affiche lorsqu'on clique sur l'onglet "Nouveau trajet". Dans ce fragment, on a placé deux objets : une carte et un bouton.
-Android studio met à disposition des éléments complexe déjà faits et nous permet de les utiliser à travers de multiples fonctions. C'est le
-cas pour les boutons et la carte électronique qui est une "Google Map". Ces éléments que l'on place statiquement grâce au langage XML sont
-ensuite accessibles dans le code Java avec leur identifiant. On récupère donc les objets créés et on les utilise en récuperant leurs informations
+Android Studio met à disposition des éléments complexes déjà faits et nous permet de les utiliser à travers de multiples fonctions. C'est le
+cas pour les boutons et la carte électronique qui est une "Google Map". Ces éléments, que l'on place statiquement grâce au langage XML, sont
+ensuite accessibles dans le code Java avec leur identifiant. On utilise ces objets en récupérant leurs informations
 (par exemple quand le bouton est cliqué) ou en chageant leur apparence (par exemple en changeant le texte du bouton ou en ajoutant un trait
 sur la carte).
-La première étape a donc été de prendre en main les fonctionnalités d'une Google Map. Celles qui nous ont servis pour ce projet sont :
+La première étape a donc été de prendre en main les fonctionnalités d'une Google Map. Celles qui nous ont servi pour ce projet sont :
 \begin{itemize}
   \item Le placement de la caméra (position et zoom)
   \item Les \emph{Markers}, qui permettent de pointer sur une position précises
@@ -269,9 +265,8 @@ Ainsi la création d'un trajet se fait de la manière suivante :
   \item On clique sur l'onglet "Nouveau trajet" qui fait apparaître le fragment contenant une carte Google et un bouton "Nouveau trajet".
   Si l'application est lancée pour la première fois, une fenêtre contextuelle nous indique qu'il faut autoriser l'application à utiliser le GPS.
   Cette fenêtre permet d'ouvrir les paramètres du smartphone.
-  \item On clique sur le bouton "Nouveau trajet". A ce moment l'application prends la localisation acutelle comme point de départ et fait
-  apparaître un point sur la carte à cet endroit. De plus la carte zoom et ce centre autour de ce point jusqu'à ce qu'il soit au centre
-  avec une vision d'une centaine de mètres de rayon autour. Le texte du bouton change et devient "Arrêter le trajet".
+  \item On clique sur le bouton "Nouveau trajet". A ce moment l'application prend la localisation acutelle comme point de départ et fait
+  apparaître un point sur la carte à cet endroit. De plus, la carte se grossit et se centre autour de ce point avec une vision d'une centaine de mètres de rayon. Le texte du bouton change et devient "Arrêter le trajet".
   \item On se déplace. Lorsque le GPS détecte un changement de position, l'application créer un nouveau point dans le trajet. Le \emph{Marker}
   se déplace sur cette nouvelle position et un trait se dessine entre le précédent point et le nouveau.
   \item On clique sur le bouton "Arrêter le trajet". Un fenêtre contextuelle permettant de rentrer le nom du trajet apparaît.
@@ -286,18 +281,18 @@ ici l'utilisateur bouge pour utiliser l'application. Il devient donc difficile d
 un minimum pour observer les changement du GPS, puis revenir sur son poste de travail pour corriger le problème éventuel et remettre
 l'application sur le téléphone.
 
-Cependant il existe d'autres manières de tester les applications mobiles. Par exemple android studio propose
-un smartphone virtuel qu'on créer sur notre poste de travail afin de le manipuler et faire des tests. Pour la partie GPS, on peut injecter
+Cependant il existe d'autres manières de tester les applications mobiles. Par exemple Android Studio propose
+un smartphone virtuel qu'on crée sur notre poste de travail afin de le manipuler et faire des tests. Pour la partie GPS, on peut injecter
 à cette machine virtuelle de fausses coordonnées. Le problème lié à cette méthode est que la virtualisation d'un smartphone coûte très cher
 en ressources. Ainsi android studio en plus de la machine virtuelle demandent un ordinateur puissant.
 
 On peut également émuler les coordonnées GPS sur un smartphone réel grâce à des applications (disponibles sur le marché \emph{Play Store}).
-On indique quelles doivent êtres nos coordonnées et notre GPS fait comme si il y était. Le problème soulevé par cette émulation, que ce soit
+On indique quelles doivent être nos coordonnées et notre GPS fait comme si il y était. Le problème soulevé par cette émulation, que ce soit
 sur une machine virtuelle ou avec une application sur un smartphone, est que ça ne prend pas en compte les erreurs de positionnement GPS.
 En effet lors d'un test réel, on a pu observer que le tracé du trajet se fait bien mais que par moment le GPS indique des positions fausses,
-ce qui a pour effet de tracer deux traits entre ce point et le chemin qu'on parcourt. Pour pallier ce problème, la solution pourrait être
-de capturer la vitesse que nous fournis le GPS et calculer si le nouveau point qu'on veut ajouter au tracé est atteignable avec cette vitesse.
-Cependant la vitesse fournis n'est pas fiable lorsqu'on bouge lentement. On a donc décidé de faire ce traitement avec une vitesse maximale,
+ce qui a pour effet de tracer deux traits entre ce point et le chemin qu'on parcourt. Pour pallier à ce problème, la solution pourrait être
+de capturer la vitesse que nous fournit le GPS et calculer si le nouveau point qu'on veut ajouter au tracé est atteignable avec cette vitesse.
+Cependant la vitesse communiquée n'est pas fiable lorsqu'on bouge lentement. On a donc décidé de faire ce traitement avec une vitesse maximale,
 assez haute pour ne pas être atteinte par un cycliste.
 \begin{figure}[ht]
     \label{Différence entre avant et après correction}
@@ -307,13 +302,13 @@ assez haute pour ne pas être atteinte par un cycliste.
 \end{figure}
 
 \subsubsection{Sauvegarde des trajets}
-Au début du projet, les trajets effectués par l'utilisateur étaient destinés à être enregistrés dans une base de donnée. Ainsi, les utilisateurs
+Au début du projet, les trajets effectués par l'utilisateur étaient destinés à être enregistrés dans une base de données. Ainsi, les utilisateurs
 pouvaient utiliser plusieurs appareils sans perdre leurs trajets et cela aurait permis plus tard le partage de ceux-ci. Cependant, après avoir
-rencontrés certains problèmes pour relier l'application smartphone au serveur, il a été décidé de sauvegarder les trajets dans des fichiers,
+rencontré certains problèmes pour relier l'application smartphone au serveur, il a été décidé de sauvegarder les trajets dans des fichiers,
 au moins temporairement.
 
-Por simplifier la communication potentielle avec le serveur, une librairie Java a été réalisé pour représenter un trajet. Cette librairie
-contient deux objets essentiels \emph{Journey} et \emph{JourneyHistory}. L'un représentant un trajet et l'autre un ensemble de trajet
+Pour simplifier la communication potentielle avec le serveur, une bibliothèque Java a été réalisée pour représenter un trajet. Cette bibliothèque
+contient deux objets essentiels \emph{Journey} et \emph{JourneyHistory}. L'un représentant un trajet et l'autre un ensemble de trajets
 (utilisé plus tard pour l'historique). L'objet trajet n'est qu'une abstraction d'un tableau de localisations. Ces localisations possèdent
 quatres composantes :
 \begin{itemize}
@@ -323,7 +318,7 @@ quatres composantes :
   \item la date à laquelle le point a été pris
 \end{itemize}
 Ainsi à chaque nouveau point lors d'un trajet, c'est dans cet objet qu'on le stocke. Puis lorsque l'utilisateur finit son trajet,
-on l'ajoute à l'objet \emph{JourneyHistory} et on écris dans un fichier le contenu de l'objet (son nom, sa date de création et chaque
+on l'ajoute à l'objet \emph{JourneyHistory} et on écrit dans un fichier le contenu de l'objet (son nom, sa date de création et chaque
 point qu'il contient).
 
 \subsubsection{Historique}
@@ -337,12 +332,12 @@ objets comme des images ou du texte. On ajoute simplement dans ce conteneur les 
 automatiquement.
 
 Dans l'historique, chaque "Card" représente un trajet. Une "Card" est composée d'une capture d'écran de la carte prise à la fin du trajet,
-du nom du trajet, de sa date de création et de sa durée. Ainsi, lorsqu'on affiche le fragment "Historique", on créer une "Card" pour
+du nom du trajet, de sa date de création et de sa durée. Ainsi, lorsqu'on affiche le fragment "Historique", on crée une "Card" pour
 chaque trajet dans le \emph{JourneyHistory}. Ceux-ci sont triés par date de création, on les affiche donc du plus récent au plus vieux.
 
-Afin de pouvoir consulter les trajets de manière plus précise, le dernière fonctionnalité ajoutée à été de pouvoir cliquer sur chaque "Card"
+Afin de pouvoir consulter les trajets de manière plus précise, le dernière fonctionnalité ajoutée a été de pouvoir cliquer sur chaque "Card"
 de l'historique. Cela a pour effet d'amener vers une autre page, une autre activité permettant de consulter un trajet. Cette page contient
 une Google Map avec le trajet dessiné dessus. En dessous on retrouve le nom, la date et la durée du trajet. A l'origine, cette page devait
 être plus complète, avec par exemple le dénivelé du trajet, la météo ou des statistiques. De plus la carte affichée n'est ici que pour
-permettre à l'utilisateur d'avoir une vue globale du trajet en manipulant la carte. Elle ne remplie pas la fonction voulue à l'origine
-qui était de fonctionner comme un GPS de voiture, guidant l'utilisateur au court de son trajet.
+permettre à l'utilisateur d'avoir une vue globale du trajet en manipulant la carte. Elle ne remplit pas la fonction voulue à l'origine
+qui était de fonctionner comme un GPS de voiture, guidant l'utilisateur au cours de son trajet.
