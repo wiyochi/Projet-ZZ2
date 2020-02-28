@@ -9,3 +9,12 @@ L'avantage de cette architecture est qu'elle permet de travailler en parallèle 
 \section{Description détailliée du système}
 
 \input{developpement.tex}
+
+\section{Tests effectués}
+\subsection{Bibliothèque de gestion des trajets}
+Nous avons mis en place lors du développement de la bibliothèque un ensemble de tests unitaires à l'aide de JUnit.
+Ces tests nous ont permis de vérifier que les fonctionnalités de la bibliothèque étaient implémentées correctement.
+Nous pouvions donc exclure la bibliothèque lorsqu'un problème était rencontré dans l'application.
+\subsection{Application}
+L'application a été testé comme indiqué précedemment sur nos téléphones privés. Nous avons donc pu utiliser une version d'android récente comme un plus vieille. On a pu également s'assurer que l'interface s'adapter correctement à des écrans de résolutions et formats différents (16:9 et 21:9).
+Un des téléphones le plus récents a été testé avec des versions d'Android personnalisée. La première \emph{XenonHD} est dérivée d'une version de LineageOS basée sur Android 9. La seconde \emph{crDroid} est dérivée directement de la version de Google d'Android 10. Nous avons donc couvert un panel assez large d'appareil, même si un test avec une tablette aurait pu s'avérer pertinent.

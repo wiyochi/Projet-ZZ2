@@ -24,7 +24,8 @@
             citecolor = black,
             anchorcolor = black]{hyperref}
 \graphicspath{{Schemas/}}
-
+\renewcommand\thechapter{\Roman{chapter}}
+\renewcommand\thesection{\arabic{section}}
 \newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}
 
 \definecolor{light-gray}{gray}{0.95} %the shade of grey that stack exchange uses
@@ -62,6 +63,7 @@
 \newpage
 \addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
+\listoftables
 \newpage
 
 \section{Résumé}
@@ -106,6 +108,16 @@
 
 \setcounter{secnumdepth}{0}
 
+\newpage
+\section{Conclusion}
+L'objectif de ce projet était la création d'une application Android permettant à des cyclistes d'enregistrer et de prévoir des trajets. Ces données devaient être stockées à distance sur un serveur ayant une base de données. Des objectifs secondaires étaient également présent pour ajouter du contenu à cette application, comme le calcul de statistiques sur les trajets ou le partage de projet entre plusieurs cyclistes.
+Les objectifs n'ont pas été atteint, en effet l'enregistrement de trajets peut être fait depuis le téléphone. Le serveur est la base de données sont prêts à échanger sur une partie des communications prévues. Cependant le stockage des données en ligne ne fonctionne pas.
+\par
+La communication entre le serveur et l'application fut impossible à réaliser à cause de la configuration du réseau informatique de l'ISIMA. De plus, beaucoup de temps a été passé à résoudre des problèmes, nous avons donc eu moins de temps à consacrer à l'ajout de fonctionnalités.
+\par
+Cependant, nous avons pu découvrir le développement sur la plateforme Android. Nous avons aussi pu prévoir une architecture système composée de plusieurs programmes. Tout cela nous a permis d'approfondir notre connaissance du langage Java. Enfin nous avons eu l'occasion de réfléchir aux tests à effectuer sur notre code et sur le produit finis.
+\par
+Notre objectif dans ce projet ne fus pas atteint. Le travail peut donc être prolongé pour finir d'implémenter le protocole de communication. Les axes d'améliorations sont nombreux, il faudrait tout d'abord compléter la documentation et les commentaires sur notre travail.
 \newpage
 \input{webographie.tex}
 \newpage

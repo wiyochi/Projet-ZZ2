@@ -57,7 +57,15 @@ Une page de trajet s'affiche lorsqu'on clique sur l'un dans l'historique. Cette 
 sa durée mais crée aussi une nouvelle carte (google map) sur laquelle est retracé le chemin effectué lors de la création du trajet.
 
 \newpage
+\section{Prise en main du serveur}
+Il est possible de communiquer avec le serveur en utilisant un outil de communication comme \emph{netcat}. Il faudra alors échanger sur le port 45703. Quelques commandes sont accessibles directement telles que \emph{connect}, \emph{subsribe} et \emph{history}. Il faudra cependant veillé à bien respecté le protocole décris précédemment pour ne pas mettre le serveur en défaut. En effet, aucune sécurité n'est présente comme le serveur n'est pas censé être en accès libre.
+\par
+De plus le serveur est également accessible pour quelques commandes d'administrations. La commande \emph{subscribe} a la même utilité que celle du client.
+La commande \emph{query} est également disponnible, elle permet de saisir une requête SQL depuis le serveur et d'afficher le retour sur la sortie standard. Enfin la commande \emph{stop} permet d'éteindre le serveur.
 \section{Possibilités d'évolutions}
+\par
+Pour accéder aux serveurs nous utilisions le programme screen comme indiquée précédemment. Mais il est tout a fais possible de démarrer le serveur dans un terminal classique et d'échanger avec lui.
+\subsection{Application}
 En raison de multiples facteurs, l'application que nous avons imaginée à l'origine est très différente de celle que nous présentons aujourd'hui.
 En effet nous n'avons ici que la base, qui consiste à tracer des trajets grâce à une carte électronique et à consulter ces trajets. Nous pouvons
 donc dire que l'évolution possible de l'application serait déjà d'obtenir les fonctionnalités prévues. Premièrement la connexion au serveur
@@ -75,3 +83,17 @@ sont équipés aujourd'hui de nombreux capteurs, en plus du GPS. Cela permettera
 dénivelé, la météo à chaque portion du trajet. L'application pourrait en faire des graphiques, en calculer les efforts fournis sur chaque trajet.
 On pourrait même imaginer d'aller plus loin sur cet aspect et lier l'application à des dispositifs extérieurs qui pourrait se placer sur le
 vélo ou sur l'utilisateur pour obtenir la puissance utilisée sur les pédales ou le rythme cardiaque.
+\subsection{Serveur}
+Pour les améliorations possibles du serveur, la direction est la même. Nous n'avons pas pu terminer l'intégration de toutes les commandes du protocoles.
+Il faudrait donc dans un premier temps développer le serveur pour qu'il puisse soutenir l'écosystème complet.
+\par
+De plus nous pouvons l'améliorer en ajoutant une interface plus simple qu'un terminal, via par exemple une page internet ou une version spéciale de l'application.
+Cette nouvelle interface permettrait aux développeurs d'accéder plus efficacement aux données stockées ainsi que de voir la charge du serveur.
+\par
+Les communications ne sont pas sécurisées pour le moment, une utilisation de protocole chiffré pourrait donc augmenter significativement la sureté de l'application ainsi que la protection de la vie privée des utilisateurs ; surtout dans une optique de développement sous la forme d'un réseau social.
+\par
+Enfin nous pourrions changer l'architecture du serveur pour utiliser des notions que nous avons découvertes au cours de l'année. Nous pourrions utiliser par exemple Springboot pour mettre en place une API à laquelle l'application accéderait.
+
+\subsection{Projet}
+Le projet en lui même peut être amélioré dans sa globalité en ajoutant plus de commentaire et en créant une documentation sur le code.
+Nous pourrions aussi ajouter des fonctionnalités de développement et d'intégration continus pour permettre un developpement plus sûr et un déploiement facilité sur le serveur.
