@@ -48,7 +48,7 @@ Pour se connecter à une session ou la créer si elle n'existe pas, on utilise l
 \subsection{Base de données}
 Le base de données est composée de cinq tables. La table centrale \emph{Projets} contient un identifiant unique pour le projet ainsi que les informations basiques (nom, type et date).
 Une autre table \emph{Utilisateurs} se charge de contenir les informations de connexion de chaque utilisateur de l'application. Ces deux tables sont mises en relation par la table \emph{Accès} qui permet de restreindre la visibilité des projets.
-Enfin il y a deux tables contenant les points. Chaque point possède des coordonnées spatiales et temporelles, 
+Enfin il y a deux tables contenant les points. Chaque point possède des coordonnées spatiales, ainsi que l'identifiant du projets auquel il est rattaché. La seule différence entre les deux tables de points et la présence d'une coordonnée supplémentaire liée au temps. En effet un projet n'a pas besoin de dater chaque point.
 \begin{figure}[ht]
     \label{Schéma de la base de données}
     \centering
