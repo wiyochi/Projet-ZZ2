@@ -41,7 +41,7 @@ en faisant glisser son doigt de bas en haut. Chaque "card" est cliquable et emm�
 \begin{figure}[ht]
   \label{Historique}
   \centering
-  \includegraphics[scale=0.13]{images/historique.png}
+  \includegraphics[scale=0.115]{images/historique.png}
   \caption{Capture d'écran de l'historique}
 \end{figure}
 
@@ -56,9 +56,9 @@ en faisant glisser son doigt de bas en haut. Chaque "card" est cliquable et emm�
 Une page de trajet s'affiche lorsqu'on clique sur l'un dans l'historique. Cette page détaille le trajet avec son nom, sa date de création et
 sa durée mais crée aussi une nouvelle carte (google map) sur laquelle est retracé le chemin effectué lors de la création du trajet.
 
-\newpage
+\vspace{5cm}
 \section{Prise en main du serveur}
-Il est possible de communiquer avec le serveur en utilisant un outil de communication comme \emph{netcat}. Il faudra alors échanger sur le port 45703. Quelques commandes sont accessibles directement telles que \emph{connect}, \emph{subsribe} et \emph{history}. Il faudra cependant veillé à bien respecté le protocole décris précédemment pour ne pas mettre le serveur en défaut. En effet, aucune sécurité n'est présente comme le serveur n'est pas censé être en accès libre.
+Il est possible de communiquer avec le serveur en utilisant un outil de communication comme \emph{netcat}. Il faudra alors échanger sur le port 45703. Quelques commandes sont accessibles directement telles que \emph{connect}, \emph{subsribe} et \emph{history}. Il faudra cependant veiller à bien respecter le protocole décris précédemment pour ne pas mettre le serveur en défaut. En effet, aucune sécurité n'est présente comme le serveur n'est pas censé être en accès libre.
 \par
 De plus le serveur est également accessible pour quelques commandes d'administrations. La commande \emph{subscribe} a la même utilité que celle du client.
 La commande \emph{query} est également disponnible, elle permet de saisir une requête SQL depuis le serveur et d'afficher le retour sur la sortie standard. Enfin la commande \emph{stop} permet d'éteindre le serveur.

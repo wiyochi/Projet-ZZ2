@@ -1,3 +1,18 @@
+\section{Etat de l'art}
+De nos jours le développement d'application mobile s'est scindé en deux catégories : le développement pour Android et le développement pour iOS.
+Nous allons nous concentrer sur la partie Android. Android est le système d'exploitation le plus répandu et permet donc à une application d'être
+accessible au plus grand nombre. Il est mis à jour par Google, et une grande communauté existe autour que ce soit par des particuliers ou des
+entreprises.
+
+Pour développer une application sous android l'approche la plus courante est d'utiliser le Java et le SDK Android, tout cela directement depuis
+l'environnement Android Studio. Cependant il est possible d'utiliser d'autres langages tels que Kotlin (devenu récemment le nouveau langage officiel
+de la plateforme), ainsi que d'autre via des bibliothèques d'intégration. Il y a par exemple le NDK fourni par Google qui permet de développer à
+l'aide de C ou de C++, et d'intégrer cela dans un minimum de Java.
+
+Parmi les 2.6 millions d'applications disponibles depuis la plateforme de téléchargement officielle ('Play Store"), il en existe une qui remplit
+le cahier des charges de notre projet : Strava. Nous allons donc nous servir de cette application comme modèle. Nous avons également découvert
+l'application MapMyRun qui contient le même principe que le coeur de notre application.
+
 \section{Analyse du problème}
 La problématique de ce projet est comment aider un cycliste à réaliser des trajets qui ne sont pas répertoriés sur des cartes. L'idée est qu'un cycliste, 
 en particulier ceux qui pratiquent le vélo tout terrain, n'a pas à sa disposition des cartes précises des chemins possibles. En effet,
@@ -5,7 +20,7 @@ lorsqu'on s'éloigne des routes pour utiliser des chemins (à travers des forêt
 très exhaustives. La solution serait donc de fournir un outil permettant aux cyclistes de réaliser leur propres trajets dans ces
 chemins et de pouvoir les partager à d'autres cyclistes qui souhaiteraient effectuer ces trajets.
 \par
-Nous devons stockés plusieurs informations sur les trajets, comme la date à laquelle ils ont été effectué, la distance parcourue ainsi que le temps mis à le parcourir. D'autres informations pourront en être tirés telle que la vitesse par exemple.
+Nous devons stocker plusieurs informations sur les trajets, comme la date à laquelle ils ont été effectué, la distance parcourue ainsi que le temps mis à le parcourir. D'autres informations pourront en être tirées telle que la vitesse par exemple.
 Enfin il est possible que plus d'informations puissent être stockées en annexe (exemple : la météo).
 \section{Proposition d'une solution}
 L'outil qui permettrait de résoudre ce problème serait donc utilisable par un cycliste afin de sauvegarder son trajet. La solution la plus évidente
