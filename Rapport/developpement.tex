@@ -1,8 +1,6 @@
-
-\section{Le développement de l'application}
 \subsection{Les outils}
 \subsubsection{Machine virtuelle}
-Concernant la partie serveur, nous avons demandé un support pour héberger la base de données. Isima nous a donné en conséquence un machine
+Concernant la partie serveur, nous avons demandé un support pour héberger la base de données. L'ISIMA nous a donné en conséquence un machine
 virtuelle sur leurs serveurs. Pour travailler dessus, nous utilisons le \emph{ssh}. Le système d'exploitation installé est \emph{CentOS}.
 Pour le savoir il faut lire le contenu du fichier \emph{/proc/version} :
 \begin{mdframed}[backgroundcolor=light-gray, roundcorner=20pt,
@@ -21,28 +19,6 @@ sudo yum install nc
 sudo yum install nmap
 \end{lstlisting}
 
-\subsubsection{Base de données}
-Nous avons tout d'abord dû choisir quelle technologie nous allions utiliser pour notre base de données.
-Nous en connaissions un nombre suffisant pour ne pas en chercher d'autres. Notre choix s'est finalement porté sur MySQL car il répondait à nos besoins, et sa mise en place était plus accessible.
-\par
-\begin{center}
-    Technologies que nous connaissions
-    \par
-    \begin{tabular}{|l|c|c|c|c|}
-        \hline
-        Nom & Niveau de connaissance & Facilité d'intégration & License & \\
-        \hline
-        PostGreSQL & Inconnu & Oui & Oui &\\
-        \hline
-        MySQL & Bon & Oui & Oui & GPLv2\\
-        \hline
-        Oracle Database & Bon & Oui & Oui & \\
-        \hline
-        sqlite3 & Bon & Non & Oui & \\
-        \hline
-    \end{tabular}
-\end{center}
-
 Pour installer le \emph{Système de Gestion de Base de Données}. Il faut tout d'abord mettre un mot de passe administrateur
 pour s'y connecter.
 \begin{lstlisting}[language=bash]
@@ -59,7 +35,7 @@ USE DATABASE <nom de la base de données>
 \end{lstlisting}
 
 
-\subsubsection{Le serveur Java}
+\subsubsection{Serveur Java}
 
 Pour l'exécution du serveur java, on utilisera Screen.
 Screen est un logiciel qui permet de créer des terminaux (appelés \emph{sessions}), de s'y déconnecter puis reconnecter autant que désiré.
@@ -68,17 +44,6 @@ Pour se connecter à une session ou la créer si elle n'existe pas, on utilise l
 \begin{lstlisting}[language=bash]
     screen -R <nom_du_terminal>
 \end{lstlisting}
-
-\subsubsection{Côté client}
-Pour développer la partie client de l'application, le choix s'est porté naturellement sur une application android puisque nous possèdons des
-smartphones sous android 9 et android 7. Nous avons donc utilisé android studio, un environnement de développement intégré conçu pour générer
-des applications androids. Ce logiciel utilise le langage XML pour la partie "statique", visuelle, et nous laisse le choix entre le langage
-Kotlin et le langage Java pour la partie exécution de code. Au départ, nous avions la volonté de profiter de ce projet pour apprendre
-le Kotlin, un langage qui semble très intéressant avec son paradigme fonctionnel. Cependant, nous n'avions également que très peu d'expérience
-dans le développement mobile qui est aussi très riche avec beaucoup d'aspects et fonctionnements propres à apprendre. Il s'est très vite révélé
-qu'il était très difficile d'avancer le projet en apprenant en parallèle le développement mobile et le Kotlin. De plus, lorsqu'un problème
-survient, il est beaucoup plus aisé de trouver de la documentation ou de l'aide avec le langage Java puisque le Kotlin est beaucoup plus récent.
-Il a donc été convenu de reprendre le projet avec le langage Java afin de se concentrer sur l'apprentissage du développement mobile.
 
 \subsection{Base de données}
 Le développement de la base de données s'est fait rapidement. Nous avons décidé de 
@@ -89,7 +54,7 @@ Le développement de la base de données s'est fait rapidement. Nous avons déci
     \caption{Schéma représentant la base de données}
 \end{figure}
 
-\subsection{Le serveur}
+\subsection{Serveur}
 \subsubsection{Processus}
 Le serveur utilise une architecture avec plusieurs processus. Le processus principal attend une connexion provenant d'un client (application).
 A chaque connexion un nouveau processus est créé pour intéragir avec le client. Ce processus attend donc un message du client, exécute la commande
@@ -102,8 +67,6 @@ Le premier est le processus en lui même et utilise les deux autres pour effectu
 Enfin le \emph{CommunicationHandler} gère la communication réseau avec le client, il permet la réception et l'envoi de chaîne de caractères.
 Enfin deux classes sont utilisées pour faciliter le travail de conversion des formats pour les points : \emph{Point3D} et \emph{Point4D} qui correspondent respectivement à une coordonnée dans l'espace : (x, y, z)
 et à une coordonnée dans l'espace et le temps : (x, y, z, t).
-\subsubsection{Echange type}
-TODO : Diagramme de séquence
 
 \subsubsection{Implémentation}
 La création du serveur devait à l'origine être rapide car on le considérait comme étant annexe. C'est pourquoi on a choisi l'utilisation d'une
@@ -162,8 +125,8 @@ Les \emph{BufferedReader} et \emph{PrintWriter} sont des objets qui permettent d
 InputStream input = socket.getInputStream();
 OutputStream output = socket.getOutputSteam();
 
-BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-PrintWriter writer = new PrintWriter(output);
+BufferedReader rd = new BufferedReader(new InputStreamReader(input));
+PrintWriter wr = new PrintWriter(output);
 \end{lstlisting}
 
 \subsubsection{Protocole de communication}
@@ -215,14 +178,16 @@ PrintWriter writer = new PrintWriter(output);
         \end{tabular}
     \end{center}
 
+  \subsubsection{Echange type}
+    TODO : Diagramme de séquence
 
-\subsection{Développement de l'application android}
+\subsection{Développement de l'application Android}
 \subsubsection{Squelette de l'application}
 Afin de comprendre les mécanismes du développement mobile, la première phase a été de simplement créer une application très basique, contenant
 uniquement les différentes sections qu'on voudrait développer par la suite, sans leur contenu. Il a donc fallu comprendre le système des 
-"activités" et des "fragments" qu'utilise android.
+"activités" et des "fragments" qu'utilise Android.
 \begin{itemize}
-  \item Une activité est une composante métier d'une application android et possède une "View" (un partie graphique).
+  \item Une activité est une composante métier d'une application Android et possède une "View" (un partie graphique).
   \item Un fragment s'apparente grandement à une activité. La différence est qu'un fragment est lié à une partie d'écran et non pas à un écran entier. 
 \end{itemize}
 Ainsi pour créer les différents onglets, on utilise une activité principale qui contient la barre d'outils  en haut avec le nom de l'onglet
@@ -249,7 +214,7 @@ La première étape a donc été de prendre en main les fonctionnalités d'une G
   \item Les \emph{Markers}, qui permettent de pointer sur une position précises
   \item La \emph{Polyline}, un outil qui permet de dessiner sur la carte avec une suite de positions
 \end{itemize}
-Le point suivant a été de comprendre le fonctionnement d'android pour obtenir la localisation géographique du téléphone. Le GPS n'est pas le
+Le point suivant a été de comprendre le fonctionnement d'Android pour obtenir la localisation géographique du téléphone. Le GPS n'est pas le
 seul moyen d'obtenir une position. En effet il existe trois façons d'obtenir une localisation :
 \begin{enumerate}
   \item le \emph{GPS\_PROVIDER} (Global Positionning System) utilise les satellites
@@ -284,7 +249,7 @@ l'application sur le téléphone.
 Cependant il existe d'autres manières de tester les applications mobiles. Par exemple Android Studio propose
 un smartphone virtuel qu'on crée sur notre poste de travail afin de le manipuler et faire des tests. Pour la partie GPS, on peut injecter
 à cette machine virtuelle de fausses coordonnées. Le problème lié à cette méthode est que la virtualisation d'un smartphone coûte très cher
-en ressources. Ainsi android studio en plus de la machine virtuelle demandent un ordinateur puissant.
+en ressources. Ainsi Android Studio en plus de la machine virtuelle demandent un ordinateur puissant.
 
 On peut également émuler les coordonnées GPS sur un smartphone réel grâce à des applications (disponibles sur le marché \emph{Play Store}).
 On indique quelles doivent être nos coordonnées et notre GPS fait comme si il y était. Le problème soulevé par cette émulation, que ce soit
