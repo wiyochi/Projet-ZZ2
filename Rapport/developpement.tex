@@ -48,7 +48,7 @@ Pour se connecter à une session ou la créer si elle n'existe pas, on utilise l
 \subsection{Base de données}
 Le base de données est composée de cinq tables. La table centrale \emph{Projets} contient un identifiant unique pour le projet ainsi que les informations basiques (nom, type et date).
 Une autre table \emph{Utilisateurs} se charge de contenir les informations de connexion de chaque utilisateur de l'application. Ces deux tables sont mises en relation par la table \emph{Accès} qui permet de restreindre la visibilité des projets.
-Enfin il y a deux tables contenant les points. Chaque point possède des coordonnées spatiales, ainsi que l'identifiant du projets auquel il est rattaché. La seule différence entre les deux tables de points et la présence d'une coordonnée supplémentaire liée au temps. En effet un projet n'a pas besoin de dater chaque point.
+Enfin il y a deux tables contenant les points. Chaque point possède des coordonnées spatiales, ainsi que l'identifiant du projets auquel il est rattaché. La seule différence entre les deux tables de points est la présence d'une coordonnée supplémentaire liée au temps. En effet un projet n'a pas besoin de dater chaque point.
 \begin{figure}[ht]
     \label{Schéma de la base de données}
     \centering
@@ -61,7 +61,7 @@ Enfin il y a deux tables contenant les points. Chaque point possède des coordon
 Le serveur utilise une architecture avec plusieurs processus. Le processus principal attend une connexion provenant d'un client (application).
 A chaque connexion un nouveau processus est créé pour intéragir avec le client. Ce processus attend donc un message du client, exécute la commande
 SQL nécessaire pour obtenir une réponse et répond au client en formatant les données. Un processus supplémentaire existe pour pouvoir
-travailler directement avec le serveur, sans passer par un client. Pour cela, l'entrée et la sortie standard sont utilisées et il faut donc un accès direct à la machine.
+travailler directement avec le serveur, sans passer par un client. Pour cela, l'entrée et la sortie standards sont utilisées et il faut donc un accès direct à la machine.
 \subsubsection{Classes}
 Le processus principal n'utilise qu'une seule classe \emph{Serveur}, tout comme le processus de communication direct \emph{LocalCommand}.
 Cependant le processus de communication avec le client est séparé en plusieurs objets : \emph{Client}, \emph{SQLHandler} et \emph{CommunicationHandler}. 
@@ -218,12 +218,12 @@ fragment qu'on affiche lorsqu'on clique sur l'onglet "Nouveau trajet". Dans ce f
 Android Studio met à disposition des éléments complexes déjà faits et nous permet de les utiliser à travers de multiples fonctions. C'est le
 cas pour les boutons et la carte électronique qui est une "Google Map". Ces éléments, que l'on place statiquement grâce au langage XML, sont
 ensuite accessibles dans le code Java avec leur identifiant. On utilise ces objets en récupérant leurs informations
-(par exemple quand le bouton est cliqué) ou en chageant leur apparence (par exemple en changeant le texte du bouton ou en ajoutant un trait
+(par exemple quand le bouton est cliqué) ou en changeant leur apparence (par exemple en changeant le texte du bouton ou en ajoutant un trait
 sur la carte).
-La première étape a donc été de prendre en main les fonctionnalités d'une Google Map. Celles qui nous ont servi pour ce projet sont :
+La première étape a donc été de prendre en main les fonctionnalités d'une Google Map. Celles qui nous ont servis pour ce projet sont :
 \begin{itemize}
   \item Le placement de la caméra (position et zoom)
-  \item Les \emph{Markers}, qui permettent de pointer sur une position précises
+  \item Les \emph{Markers}, qui permettent de pointer sur une position précise
   \item La \emph{Polyline}, un outil qui permet de dessiner sur la carte avec une suite de positions
 \end{itemize}
 Le point suivant a été de comprendre le fonctionnement d'Android pour obtenir la localisation géographique du téléphone. Le GPS n'est pas le
@@ -242,9 +242,9 @@ Ainsi la création d'un trajet se fait de la manière suivante :
   \item On clique sur l'onglet "Nouveau trajet" qui fait apparaître le fragment contenant une carte Google et un bouton "Nouveau trajet".
   Si l'application est lancée pour la première fois, une fenêtre contextuelle nous indique qu'il faut autoriser l'application à utiliser le GPS.
   Cette fenêtre permet d'ouvrir les paramètres du smartphone.
-  \item On clique sur le bouton "Nouveau trajet". A ce moment l'application prend la localisation acutelle comme point de départ et fait
+  \item On clique sur le bouton "Nouveau trajet". A ce moment l'application prend la localisation actuelle comme point de départ et fait
   apparaître un point sur la carte à cet endroit. De plus, la carte se grossit et se centre autour de ce point avec une vision d'une centaine de mètres de rayon. Le texte du bouton change et devient "Arrêter le trajet".
-  \item On se déplace. Lorsque le GPS détecte un changement de position, l'application créer un nouveau point dans le trajet. Le \emph{Marker}
+  \item On se déplace. Lorsque le GPS détecte un changement de position, l'application crée un nouveau point dans le trajet. Le \emph{Marker}
   se déplace sur cette nouvelle position et un trait se dessine entre le précédent point et le nouveau.
   \item On clique sur le bouton "Arrêter le trajet". Un fenêtre contextuelle permettant de rentrer le nom du trajet apparaît.
   \item On rentre le nom du trajet dans la zone de texte.
@@ -305,7 +305,7 @@ afficher le contenu de l'onglet "Historique" sans lire des fichiers à chaque fo
 
 L'affichage de cet onglet se fait via des "MaterialCards". Google met à disposition un certain nombre de composants préfaits. Ceux-ci sont
 plus "design" et permettent de garder un visuel cohérent simplement. Ici nous avons utilisé les "Cards" qui sont des conteneurs pour d'autres
-objets comme des images ou du texte. On ajoute simplement dans ce conteneur les éléments qui le compose et la mise en forme se fait quasi
+objets comme des images ou du texte. On ajoute simplement dans ce conteneur les éléments qui le composent et la mise en forme se fait quasi
 automatiquement.
 
 Dans l'historique, chaque "Card" représente un trajet. Une "Card" est composée d'une capture d'écran de la carte prise à la fin du trajet,

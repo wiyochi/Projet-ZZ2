@@ -58,20 +58,23 @@ sa durée mais crée aussi une nouvelle carte (google map) sur laquelle est retr
 
 \vspace{5cm}
 \section{Prise en main du serveur}
-Il est possible de communiquer avec le serveur en utilisant un outil de communication comme \emph{netcat}. Il faudra alors échanger sur le port 45703. Quelques commandes sont accessibles directement telles que \emph{connect}, \emph{subsribe} et \emph{history}. Il faudra cependant veiller à bien respecter le protocole décris précédemment pour ne pas mettre le serveur en défaut. En effet, aucune sécurité n'est présente comme le serveur n'est pas censé être en accès libre.
+Il est possible de communiquer avec le serveur en utilisant un outil de communication comme \emph{netcat}. Il faudra alors échanger sur le port 45703. Quelques commandes sont accessibles directement telles que \emph{connect}, \emph{subsribe} et \emph{history}. Il faudra cependant veiller à bien respecter le protocole décrit précédemment pour ne pas mettre le serveur en défaut. En effet, aucune sécurité n'est présente comme le serveur n'est pas censé être en accès libre.
 \par
 De plus le serveur est également accessible pour quelques commandes d'administrations. La commande \emph{subscribe} a la même utilité que celle du client.
-La commande \emph{query} est également disponnible, elle permet de saisir une requête SQL depuis le serveur et d'afficher le retour sur la sortie standard. Enfin la commande \emph{stop} permet d'éteindre le serveur.
+La commande \emph{query} est également disponible, elle permet de saisir une requête SQL depuis le serveur et d'afficher le retour sur la sortie standard. Enfin la commande \emph{stop} permet d'éteindre le serveur.
 \section{Possibilités d'évolutions}
 \par
-Pour accéder aux serveurs nous utilisions le programme screen comme indiquée précédemment. Mais il est tout a fais possible de démarrer le serveur dans un terminal classique et d'échanger avec lui.
+Pour accéder aux serveurs nous utilisons le programme screen comme indiqué précédemment. Mais il est tout a fait possible de démarrer le serveur dans un terminal classique et d'échanger avec lui.
 \subsection{Application}
 En raison de multiples facteurs, l'application que nous avons imaginée à l'origine est très différente de celle que nous présentons aujourd'hui.
 En effet nous n'avons ici que la base, qui consiste à tracer des trajets grâce à une carte électronique et à consulter ces trajets. Nous pouvons
-donc dire que l'évolution possible de l'application serait déjà d'obtenir les fonctionnalités prévues. Premièrement la connexion au serveur
-afin que les données de l'utilisateur soient placées dans la base de données. Ensuite l'ajout d'une fonction suivi de "trajet", où l'utilisateur
-pourrait se servir d'un trajet créé auparavant comme d'un GPS classique, avec sa position en évolution par rapport au tracé. Enfin, le fait
-de pouvoir partager les trajets entre utilisateurs.
+donc dire que l'évolution possible de l'application serait déjà d'obtenir les fonctionnalités prévues :
+\newpage
+\begin{itemize}
+  \item la connexion au serveur afin que les données de l'utilisateur soient placées dans la base de données.
+  \item ajout d'une fonction suivi de "trajet", où l'utilisateur pourrait se servir d'un trajet créé auparavant comme d'un GPS classique, avec sa position en évolution par rapport au tracé.
+  \item le fait de pouvoir partager les trajets entre utilisateurs.
+\end{itemize}
 
 L'application a un fort potentiel communautaire. Le fait de créer des trajets peut servir à soi-même mais il est d'autant plus intéressant
 de pouvoir rendre public ses chemins afin de par exemple faire découvrir des régions ou aider les cyclistes débutants. Ainsi des utilisateurs
@@ -84,7 +87,7 @@ dénivelé, la météo à chaque portion du trajet. L'application pourrait en fa
 On pourrait même imaginer d'aller plus loin sur cet aspect et lier l'application à des dispositifs extérieurs qui pourrait se placer sur le
 vélo ou sur l'utilisateur pour obtenir la puissance utilisée sur les pédales ou le rythme cardiaque.
 \subsection{Serveur}
-Pour les améliorations possibles du serveur, la direction est la même. Nous n'avons pas pu terminer l'intégration de toutes les commandes du protocoles.
+Pour les améliorations possibles du serveur, la direction est la même. Nous n'avons pas pu terminer l'intégration de toutes les commandes du protocole.
 Il faudrait donc dans un premier temps développer le serveur pour qu'il puisse soutenir l'écosystème complet.
 \par
 De plus nous pouvons l'améliorer en ajoutant une interface plus simple qu'un terminal, via par exemple une page internet ou une version spéciale de l'application.
@@ -95,5 +98,5 @@ Les communications ne sont pas sécurisées pour le moment, une utilisation de p
 Enfin nous pourrions changer l'architecture du serveur pour utiliser des notions que nous avons découvertes au cours de l'année. Nous pourrions utiliser par exemple Springboot pour mettre en place une API à laquelle l'application accéderait.
 
 \subsection{Projet}
-Le projet en lui même peut être amélioré dans sa globalité en ajoutant plus de commentaire et en créant une documentation sur le code.
+Le projet en lui même peut être amélioré dans sa globalité en ajoutant plus de commentaires et en créant une documentation sur le code.
 Nous pourrions aussi ajouter des fonctionnalités de développement et d'intégration continus pour permettre un developpement plus sûr et un déploiement facilité sur le serveur.
